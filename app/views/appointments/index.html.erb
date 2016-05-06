@@ -1,0 +1,49 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+
+<h1>Listado Turnos</h1>
+
+<%= form_tag protocols_path, :method => 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<table id="appointments" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Fecha / Hora</th>
+      <th>Paciente</th>
+      <th>Doctor</th>
+      <th>Lugar</th>
+      <th>Visita</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.appointment_date %></td>
+        <td><%= appointment.patient.full_name %></td>
+        <td><%= appointment.doctor.full_name %></td>
+        <td><%= appointment.appointment_room.name %></td>
+        <td><%= appointment.visit_type.name %></td>
+        <td>
+          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Edit</button>
+          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Visit</button>
+          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Cancel</button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @appointments %>
+<br>
+<div id="appointment_modal" class="modal fade" tabindex="-1" role="dialog"></div>

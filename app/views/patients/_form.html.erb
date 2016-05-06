@@ -1,0 +1,89 @@
+<%= form_for @patient, html: {role: "form"} do |f| %>
+  <div class="modal-header">
+    <h4 class="modal-title">Add / Update Protocol</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :birth_date %><br>
+      <%= f.date_select :birth_date, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :identifier %><br>
+      <%= f.text_field :identifier, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %><br>
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone %><br>
+      <%= f.text_field :phone, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :phone_mobile %><br>
+      <%= f.text_field :phone_mobile, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :contact_phone %><br>
+      <%= f.text_field :contact_phone, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :base_medication %><br>
+      <%= f.text_field :base_medication, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :referring_doctor %><br>
+      <%= f.select(:referring_doctor_id,
+        Doctor.all.map {|d| [ d.full_name, d.id ] },
+        { include_blank: true },
+        { class:'form-control' })
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.label :qualifying_pathology %><br>
+      <%= f.select(:qualifying_pathology_id,
+        Disease.all.map {|d| [ d.name, d.id ] },
+        { include_blank: true },
+        { class:'form-control' })
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.label :diseases %><br>
+      <%= f.select(:diseases,
+        Disease.all.map {|d| [ d.name, d.id ] },
+        { },
+        { multiple: true, class:'form-control' })
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.label :target_protocol %><br>
+      <%= f.select(:target_protocol_id,
+        Protocol.all.map {|p| [ p.name, p.id ] },
+        { include_blank: true },
+        { class:'form-control' })
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.label :protocol %><br>
+      <%= f.select(:protocol_id,
+        Protocol.all.map {|p| [ p.name, p.id ] },
+        { include_blank: true },
+        { class:'form-control' })
+      %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Appointment</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+  </div>
+<% end %>
+
+<div id="appointment_modal" class="modal fade" tabindex="-1" role="dialog"></div>

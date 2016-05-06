@@ -1,0 +1,48 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+
+<h1>Listado Protocolos</h1>
+
+<%= form_tag protocols_path, :method => 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<table id="protocols" class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= sortable "name", "Nombre"%></th>
+      <th>Objetivo Pacientes</th>
+      <th>PI</th>
+      <th>Sub Investigador</th>
+      <th>Coordinador</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @protocols.each do |protocol| %>
+      <tr>
+        <td><%= protocol.name %></td>
+        <td><%= protocol.patients_commitment %></td>
+        <td><%= protocol.principal_investigator.full_name %></td>
+        <td><%= protocol.sub_investigator.full_name %></td>
+        <td><%= protocol.coordinator.full_name %></td>
+        <td>
+          <button type="button" class="btn btn-primary" onclick="openDialog('protocol_modal','<%= protocol_path(protocol) %>')">Editar</button> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @protocols %>
+<br>
+<button type="button" class="btn btn-primary" onclick="openDialog('protocol_modal','<%= new_protocol_path %>')">Nuevo Protocolo</button>
+<div id="protocol_modal" class="modal fade" tabindex="-1" role="dialog"></div>

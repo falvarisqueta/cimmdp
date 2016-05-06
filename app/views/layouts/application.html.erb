@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cimmdp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+<script>
+  function openDialog(container, url) {
+    $("#"+container).load(url).modal();
+  }
+
+//  $(document).ready(function(){
+//    $(document).on('shown.bs.modal', '#protocol_modal', function(){
+//      alert("test");
+  //    $(document).find("form#new_protocol").enableClientSideValidations();
+    //})
+  //})
+</script>
+</html>

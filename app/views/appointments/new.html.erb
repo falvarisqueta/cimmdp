@@ -1,0 +1,52 @@
+<%= form_for @appointment, html: {role: "form"} do |f| %>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">Add / Update Appointment</h4>
+    </div>
+    <div class="modal-body">
+      <%= fields_for(@patient) do |p| %>
+      <div class="form-group">
+        <%= p.label :full_name %><br>
+        <%= p.text_field :full_name, class: 'form-control'%>
+      </div>
+      <% end %>
+      <%= f.hidden_field :patient_id, value: @patient.id %>
+      <div class="form-group">
+        <%= f.label :appointment_date %><br>
+        <%= f.datetime_select :appointment_date, ampm:true, minute_step:30, class: 'form-control'%>
+      </div>
+      <div class="form-group">
+        <%= f.label :doctor %><br>
+        <%= f.select(:doctor_id,
+          User.all.map {|u| [ u.full_name, u.id ] },
+          { include_blank: true },
+          { class:'form-control' })
+        %>
+      </div>
+      <div class="form-group">
+        <%= f.label :place %><br>
+        <%= f.select(:place_id,
+          AppointmentRoom::Collection.map {|r| [ r.name, r.id ] },
+          { include_blank: true },
+          { class:'form-control' })
+        %>
+      </div>
+      <div class="form-group">
+        <%= f.label :visit_type %><br>
+        <%= f.select(:visit_type_id,
+          VisitType::Collection.map {|v| [ v.name, v.id ] },
+          { include_blank: true },
+          { class:'form-control' })
+        %>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<% end %>
