@@ -79,6 +79,10 @@
         { class:'form-control' })
       %>
     </div>
+    <div class="form-group">
+      <%= f.label :patient_number %><br>
+      <%= f.text_field :patient_number, class: 'form-control' %>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Appointment</button>

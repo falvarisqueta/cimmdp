@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829171038) do
+ActiveRecord::Schema.define(version: 20160829174615) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20160829171038) do
     t.integer  "target_protocol_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "patient_number"
   end
 
   create_table "protocols", force: :cascade do |t|

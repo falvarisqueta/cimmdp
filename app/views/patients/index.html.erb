@@ -19,25 +19,25 @@
 <table id="patientsTable" class="table table-striped">
   <thead>
     <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
+      <th>Name</th>
       <th>Dni</th>
-      <th>Telefono</th>
-      <th>Protocolo</th>
+      <th>Phone</th>
+      <th>Protocol</th>
+      <th>Patient #</th>
       <th colspan="4"></th>
     </tr>
   </thead>
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
-        <td><%= patient.first_name %></td>
-        <td><%= patient.last_name %></td>
+        <td><%= patient.full_name %></td>
         <td><%= patient.identifier %></td>
         <td><%= patient.phone %></td>
         <td><%= patient.protocol_name %></td>
+        <td><%= patient.patient_number %></td>
         <td>
           <a class="btn btn-primary" href="<%= patient_path(patient) %>">Edit</a>
-          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>?patient_id=<%= patient.id %>')">Appointment</button>
+          <button type="button" class="btn btn-primary" onclick="openDialog('patient_modal','<%= new_appointment_path %>?patient_id=<%= patient.id %>')">Appointment</button>
         </td>
       </tr>
     <% end %>
@@ -46,4 +46,4 @@
 <%= will_paginate @patients %>
 <br>
 <a class="btn btn-primary" href="<%= new_patient_path %>">Nuevo Paciente</a>
-<div id="appointment_modal" class="modal fade" tabindex="-1" role="dialog"></div>
+<div id="patient_modal" class="modal fade" tabindex="-1" role="dialog"></div>
