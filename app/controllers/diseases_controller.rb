@@ -49,7 +49,7 @@ class DiseasesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def disease_params
-    params.require(:disease).permit(:name)
+    params.require(:disease).permit(:name, :code)
   end
 
   def sort_column

@@ -19,12 +19,14 @@
 <table id="diseases" class="table table-striped">
   <thead>
     <tr>
+      <th>Code</th>
       <th><%= sortable "name", "Nombre"%></th>
     </tr>
   </thead>
   <tbody>
     <% @diseases.each do |disease| %>
       <tr>
+        <td><%= disease.code %></td>
         <td><%= disease.name %></td>
       </tr>
     <% end %>
