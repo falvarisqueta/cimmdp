@@ -20,12 +20,22 @@
   <thead>
     <tr>
       <th><%= sortable "name", "Nombre"%></th>
+      <th>Specialty</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th colspan="4"></th>
     </tr>
   </thead>
   <tbody>
     <% @doctors.each do |doctor| %>
       <tr>
         <td><%= doctor.full_name %></td>
+        <td><%= doctor.specialty %></td>
+        <td><%= doctor.mail %></td>
+        <td><%= doctor.phone %></td>
+        <td><%= doctor.address %></td>
+        <td><button type="button" class="btn btn-primary" onclick="openDialog('doctor_modal','<%= doctor_path(doctor) %>')">Edit</button></td>
       </tr>
     <% end %>
   </tbody>

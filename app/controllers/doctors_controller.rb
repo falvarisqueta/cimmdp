@@ -31,7 +31,7 @@ class DoctorsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @doctor.update(disease_params)
+      if @doctor.update(doctor_params)
         format.html { redirect_to doctors_url, notice: 'Doctor referente actualizado.' }
         format.json { head :no_content }
       else
@@ -49,7 +49,9 @@ class DoctorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def doctor_params
-    params.require(:doctor).permit(:first_name, :last_name)
+    params.require(:doctor).permit(
+      :first_name, :last_name, :mail, :phone, :mobile, :address, :specialty, :working_days
+    )
   end
 
   def sort_column
