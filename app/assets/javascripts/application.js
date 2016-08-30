@@ -19,3 +19,4 @@
 //= require_tree .
 //= require bootstrap-select
 //= require rails.validations
+//= require select2
