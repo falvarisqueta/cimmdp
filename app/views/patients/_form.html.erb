@@ -57,7 +57,7 @@
     </div>
     <div class="form-group">
       <%= f.label :diseases %><br>
-      <%= f.select(:diseases,
+      <%= f.select(:disease_ids,
         Disease.all.map {|d| [ d.name, d.id ] },
         { },
         { multiple: true, class:'form-control' })
@@ -85,7 +85,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Appointment</button>
+    <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>?patient_id=<%= @patient.id %>')">Appointment</button>
     <button type="submit" class="btn btn-primary">Save changes</button>
   </div>
 <% end %>
