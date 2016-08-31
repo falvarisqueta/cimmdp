@@ -1,9 +1,8 @@
 class Appointment < ActiveRecord::Base
-  include Filterable
   include AppointmentRoom
   include VisitType
 
-  belongs_to :doctor
+  belongs_to :doctor, class_name: 'User'
   belongs_to :patient
 
   validates :patient_id, :appointment_date, :visit_type_id, presence: true
