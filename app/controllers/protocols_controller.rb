@@ -3,21 +3,18 @@ class ProtocolsController < ApplicationController
   before_action :set_protocol, only: [:show, :update]
 
   def index
-    @protocols = Protocol.filter(params.slice(:search))
-          .order(sort_column + " " + sort_direction)
-          .paginate(:per_page => 5, :page => params[:page])
+    @protocols = Protocol.all
   end
 
   # GET /protocols/1
   # GET /protocols/1.json
   def show
-    @users = User.all
+
   end
 
   # GET /protocols/new
   def new
     @protocol = Protocol.new
-    @users = User.all
   end
 
   # POST /protocols

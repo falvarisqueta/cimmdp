@@ -7,24 +7,24 @@
 
 <h1>Listado Usarios</h1>
 
-<table class="table table-striped sortable">
+<table id="users" class="datatable">
   <thead>
     <tr>
-      <th data-field="first_name" data-sortable="true">First Name</th>
+      <th style="display:none;">Id</th>
+      <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
-      <th colspan="4"></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
+        <td style="display:none;" class="id"><%= user.id %></td>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td>
-          <button type="button" class="btn btn-primary" onclick="openDialog('user_modal','<%= user_path(user) %>')">Editar</button>
-        </td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,3 +32,9 @@
 
 <button type="button" class="btn btn-primary" onclick="openDialog('user_modal','<%= new_user_path %>')">Nuevo Usuario</button>
 <div id="user_modal" class="modal fade" tabindex="-1" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('users', 'user_modal', 'users');
+});
+</script>

@@ -2,8 +2,7 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: [:show, :update]
 
   def index
-    @patients = Patient.filter(params.slice(:search))
-          .paginate(:per_page => 5, :page => params[:page])
+    @patients = Patient.all
   end
 
   # GET /patients/1

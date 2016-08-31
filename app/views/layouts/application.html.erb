@@ -13,12 +13,29 @@
 </body>
 <script>
   function openDialog(container, url) {
-    $("#"+container).load(url).modal();
+    $("#" + container).load(url).modal();
+  }
+
+  function formatTable(container, modal_container, model) {
+    $("#" + container).DataTable({
+      "columnDefs": [ {
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<button type='button' class='btn btn-primary'>Edit</button>"
+        } ]
+    });
+
+    $("#" + container +" tbody").on('click', 'button', function () {
+      var id = $(this).parents('tr').find('.id').text()
+      openDialog(modal_container,'/' + model + '/' + id)
+    } );
   }
 
   $(document).ready(function() {
     $('select').select2();
   });
+
+
 //  $(document).ready(function(){
 //    $(document).on('shown.bs.modal', '#protocol_modal', function(){
 //      alert("test");

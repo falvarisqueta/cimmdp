@@ -7,32 +7,33 @@
 
 <h1>Listado Enfermendades</h1>
 
-<%= form_tag diseases_path, :method => 'get' do %>
-  <%= hidden_field_tag :direction, params[:direction] %>
-  <%= hidden_field_tag :sort, params[:sort] %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
-
-<table id="diseases" class="table table-striped">
+<table id="diseases" class="datatable">
   <thead>
     <tr>
-      <th>Code</th>
-      <th><%= sortable "name", "Nombre"%></th>
+      <th style="display:none;">Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @diseases.each do |disease| %>
       <tr>
+        <td style="display:none;" class="id"><%= disease.id %></td>
         <td><%= disease.code %></td>
         <td><%= disease.name %></td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @diseases %>
+
 <br>
 <button type="button" class="btn btn-primary" onclick="openDialog('disease_modal','<%= new_disease_path %>')">Nueva Enfermedad</button>
 <div id="disease_modal" class="modal fade" tabindex="-1" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('diseases', 'disease_modal', 'diseases');
+});
+</script>

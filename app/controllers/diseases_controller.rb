@@ -3,9 +3,7 @@ class DiseasesController < ApplicationController
   before_action :set_disease, only: [:show, :update]
 
   def index
-    @diseases = Disease.filter(params.slice(:search))
-          .order(sort_column + " " + sort_direction)
-          .paginate(:per_page => 5, :page => params[:page])
+    @diseases = Disease.all
   end
 
   def show

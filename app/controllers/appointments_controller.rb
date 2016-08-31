@@ -1,11 +1,8 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :update]
-  before_action :set_patient, only: [:new, :show, :update, :create]
 
   def index
-    @appointments = Appointment.filter(params.slice(:search))
-          .order(:appointment_date)
-          .paginate(:per_page => 5, :page => params[:page])
+    @appointments = Appointment.all
   end
 
   def show
@@ -13,12 +10,14 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @appointment.patient = Patient.find(params[:patient_id])
   end
 
   def create
     @appointment = Appointment.new(appointment_params)
 
     respond_to do |format|
+      binding.pry
       if @appointment.save
         format.html { redirect_to appointments_url, notice: 'Turno creado.' }
         format.json { head :no_content }
@@ -46,10 +45,6 @@ class AppointmentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
     @appointment = Appointment.find(params[:id])
-  end
-
-  def set_patient
-    @patient = Patient.find(params[:patient_id]) if params[:patient_id]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

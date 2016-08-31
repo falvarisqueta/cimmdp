@@ -1,5 +1,4 @@
 class Patient < ActiveRecord::Base
-  include Filterable
 
  belongs_to :protocol
  belongs_to :referring_doctor, class_name: 'Doctor'

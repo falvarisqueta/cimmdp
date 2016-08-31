@@ -3,9 +3,7 @@ class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :update]
 
   def index
-    @doctors = Doctor.filter(params.slice(:search))
-          .order(sort_column + " " + sort_direction)
-          .paginate(:per_page => 5, :page => params[:page])
+    @doctors = Doctor.all
   end
 
   def show
