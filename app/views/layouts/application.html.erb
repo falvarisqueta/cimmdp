@@ -31,16 +31,13 @@
     } );
   }
 
+  function configureClientValidation() {
+    $(document).on('shown.bs.modal', function () { $(ClientSideValidations.selectors.forms).validate(); });
+  }
+
   $(document).ready(function() {
     $('select').select2();
+    $('.modal-form').enableClientSideValidations();
   });
-
-
-//  $(document).ready(function(){
-//    $(document).on('shown.bs.modal', '#protocol_modal', function(){
-//      alert("test");
-  //    $(document).find("form#new_protocol").enableClientSideValidations();
-    //})
-  //})
 </script>
 </html>
