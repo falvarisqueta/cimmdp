@@ -1,6 +1,7 @@
 class Protocol < ActiveRecord::Base
 
   has_many :patients
+  has_many :visits
   belongs_to :sub_investigator, class_name: 'User'
   belongs_to :principal_investigator, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'

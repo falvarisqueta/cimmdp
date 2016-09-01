@@ -2,15 +2,21 @@
 <p> Here you can access the CIMMDP intranet modules by clicking on them. </p>
 
 <div>
+  Management
   <ul>
     <li><%= link_to 'Patients', patients_path %></li>
     <li><%= link_to 'Appointments', appointments_path %></li>
   </ul>
+
+  Finance
   <ul>
-    <li><%= link_to 'Finance', appointments_path %></li>
+    <li><%= link_to 'Charges', appointments_path %></li>
   </ul>
+
+  Admin
   <ul>
     <li><%= link_to 'Protocols', protocols_path %></li>
+    <li><%= link_to 'Visits', visits_path %></li>
     <li><%= link_to 'Users', users_path %></li>
     <li><%= link_to 'Diseases', diseases_path %></li>
     <li><%= link_to 'Refering Doctors', doctors_path %></li>

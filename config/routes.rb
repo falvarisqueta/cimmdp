@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :appointments
   resources :doctors
   resources :diseases
+  resources :visits
 
   root 'welcome#index'
 end
