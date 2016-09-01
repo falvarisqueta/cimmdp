@@ -1,5 +1,4 @@
 class ProtocolsController < ApplicationController
-  helper_method :sort_column, :sort_direction
   before_action :set_protocol, only: [:show, :update]
 
   def index
@@ -56,14 +55,5 @@ class ProtocolsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def protocol_params
     params.require(:protocol).permit(:name, :patients_commitment, :principal_investigator_id, :sub_investigator_id, :coordinator_id)
-  end
-
-
-  def sort_column
-    Protocol.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

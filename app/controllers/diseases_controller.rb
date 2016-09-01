@@ -1,5 +1,4 @@
 class DiseasesController < ApplicationController
-  helper_method :sort_column, :sort_direction
   before_action :set_disease, only: [:show, :update]
 
   def index
@@ -50,11 +49,4 @@ class DiseasesController < ApplicationController
     params.require(:disease).permit(:name, :code)
   end
 
-  def sort_column
-    Disease.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
 end
