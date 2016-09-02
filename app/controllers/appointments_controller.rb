@@ -1,11 +1,14 @@
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: [:show, :update]
+  before_action :set_appointment, only: [:show, :edit, :update]
 
   def index
     @appointments = Appointment.all
   end
 
   def show
+  end
+
+  def edit
   end
 
   def new
@@ -17,7 +20,6 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
 
     respond_to do |format|
-      binding.pry
       if @appointment.save
         format.html { redirect_to appointments_url, notice: 'Turno creado.' }
         format.json { head :no_content }
@@ -49,7 +51,7 @@ class AppointmentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def appointment_params
-    params.require(:appointment).permit(:appointment_date, :patient_id, :doctor_id, :visit_type_id, :place_id)
+    params.require(:appointment).permit(:start_time, :patient_id, :doctor_id, :visit_id, :place_id)
   end
 
 end

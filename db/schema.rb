@@ -11,21 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831220243) do
+ActiveRecord::Schema.define(version: 20160901232111) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
-    t.datetime "appointment_date"
+    t.datetime "start_time"
     t.integer  "place_id"
-    t.integer  "visit_type_id"
+    t.integer  "visit_id"
     t.integer  "doctor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "end_time"
   end
 
-  add_index "appointments", ["doctor_id", "appointment_date"], name: "doctor_appointment_unique", unique: true
-  add_index "appointments", ["doctor_id", "place_id", "appointment_date"], name: "appointment_unique", unique: true
-  add_index "appointments", ["place_id", "appointment_date"], name: "place_appointment_unique", unique: true
+  add_index "appointments", ["doctor_id", "place_id", "start_time"], name: "appointment_unique", unique: true
+  add_index "appointments", ["doctor_id", "start_time"], name: "doctor_appointment_unique", unique: true
+  add_index "appointments", ["place_id", "start_time"], name: "place_appointment_unique", unique: true
 
   create_table "clinic_histories", force: :cascade do |t|
     t.string   "entry"

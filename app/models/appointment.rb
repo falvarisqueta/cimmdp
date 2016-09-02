@@ -1,24 +1,20 @@
 class Appointment < ActiveRecord::Base
   include AppointmentRoom
-  include VisitType
 
   belongs_to :doctor, class_name: 'User'
   belongs_to :patient
+  belongs_to :visit
 
-  validates :patient_id, :appointment_date, :visit_type_id, presence: true
+  validates :patient_id, :start_time, presence: true
 
-  validates :doctor_id,
-    presence: true,
-    uniqueness: {
-      scope: :appointment_date,
-      message: "doctor already has an appointment for that date time"
-    }
+  delegate :full_name, to: :doctor, prefix: true
 
-  validates :place_id,
-    presence: true,
-    uniqueness: {
-      scope: :appointment_date,
-      message: "doctor already has an appointment for that date time"
-    }
+  def visits
+    patient.visits
+  end
+
+  def place_name
+    appointment_room.name
+  end
 
 end

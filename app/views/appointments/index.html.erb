@@ -30,15 +30,14 @@
   <tbody>
     <% @appointments.each do |appointment| %>
       <tr>
-        <td><%= appointment.appointment_date %></td>
+        <td><%= appointment.start_time %></td>
         <td><%= appointment.patient.full_name %></td>
         <td><%= appointment.doctor.full_name %></td>
         <td><%= appointment.appointment_room.name %></td>
-        <td><%= appointment.visit_type.name %></td>
+        <td><%= appointment.visit.name %></td>
         <td>
-          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Edit</button>
-          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Visit</button>
-          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= edit_appointment_path(appointment) %>')">Edit</button>
+          <a class="btn btn-primary" href="<%= appointment_path(appointment) %>">Show</a>
         </td>
       </tr>
     <% end %>

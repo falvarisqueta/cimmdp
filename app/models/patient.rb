@@ -21,4 +21,8 @@ class Patient < ActiveRecord::Base
    first_name + ', ' + last_name
  end
 
+ def visits
+   protocol.blank? ? target_protocol.visits : protocol.visits
+ end
+
 end
