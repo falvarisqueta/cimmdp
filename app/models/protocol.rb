@@ -5,12 +5,23 @@ class Protocol < ActiveRecord::Base
   belongs_to :sub_investigator, class_name: 'User'
   belongs_to :principal_investigator, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
+  belongs_to :backup_coordinator, class_name: 'User'
 
-  validates :name, :principal_investigator, :sub_investigator, :coordinator, presence: true
+  validates :name,
+    :principal_investigator_id,
+    :sub_investigator_id,
+    :coordinator_id,
+    :backup_coordinator_id,
+  presence: true
 
   validates :patients_commitment,
             numericality: {
               only_integer: true,
               greater_than_or_equal_to: 1
             }
+
+  delegate :full_name, to: :sub_investigator, prefix: true, allow_nil: true
+  delegate :full_name, to: :principal_investigator, prefix: true, allow_nil: true
+  delegate :full_name, to: :coordinator, prefix: true, allow_nil: true
+  delegate :full_name, to: :backup_coordinator, prefix: true, allow_nil: true
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901232111) do
+ActiveRecord::Schema.define(version: 20160902173723) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160901232111) do
     t.integer  "coordinator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "backup_coordinator_id"
   end
 
   create_table "users", force: :cascade do |t|

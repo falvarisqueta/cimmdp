@@ -16,6 +16,7 @@
       <th>PI</th>
       <th>Sub Investigador</th>
       <th>Coordinador</th>
+      <th>Backup Coordinator</th>
       <th></th>
     </tr>
   </thead>
@@ -25,9 +26,10 @@
         <td style="display:none;" class="id"><%= protocol.id %></td>
         <td><%= protocol.name %></td>
         <td><%= protocol.patients_commitment %></td>
-        <td><%= protocol.principal_investigator.full_name %></td>
-        <td><%= protocol.sub_investigator.full_name %></td>
-        <td><%= protocol.coordinator.full_name %></td>
+        <td><%= protocol.principal_investigator_full_name %></td>
+        <td><%= protocol.sub_investigator_full_name %></td>
+        <td><%= protocol.coordinator_full_name %></td>
+        <td><%= protocol.backup_coordinator_full_name %></td>
         <td></td>
       </tr>
     <% end %>
