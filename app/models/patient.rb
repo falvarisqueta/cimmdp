@@ -1,6 +1,7 @@
 class Patient < ActiveRecord::Base
 
  belongs_to :protocol
+ belongs_to :target_protocol, class_name: 'Protocol'
  belongs_to :referring_doctor, class_name: 'Doctor'
  belongs_to :qualifying_disease, class_name: 'Disease'
  has_many :clinic_histories
@@ -9,6 +10,7 @@ class Patient < ActiveRecord::Base
 
  validates :first_name, :last_name, :identifier, :address,:phone, :phone_mobile,
     :contact_phone, :referring_doctor_id, :qualifying_pathology_id, :target_protocol_id,
+    :contact_name, :contact_relationship,
     presence: true
 
  validates :identifier, uniqueness: true
