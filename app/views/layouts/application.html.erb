@@ -16,18 +16,26 @@
     $("#" + container).load(url).modal();
   }
 
-  function formatTable(container, modal_container, model) {
+  function formatTable(container, modal_container, model, buttons = '') {
     $("#" + container).DataTable({
       "columnDefs": [ {
             "targets": -1,
             "data": null,
-            "defaultContent": "<button type='button' class='btn btn-primary'>Edit</button>"
+            "defaultContent":
+              "<button type='button' class='edit btn btn-primary'>Edit</button>" + buttons
         } ]
     });
 
-    $("#" + container +" tbody").on('click', 'button', function () {
+    $("#" + container +" tbody").on('click', 'button.edit', function () {
       var id = $(this).parents('tr').find('.id').text()
       openDialog(modal_container,'/' + model + '/' + id)
+    } );
+  }
+
+  function addTableButtonAction(container, button_class, modal_container, model, url) {
+    $("#" + container +" tbody").on('click', button_class, function () {
+      var id = $(this).parents('tr').find('.id').text()
+      openDialog(modal_container,'/' + model + '/' + id + '/' + url)
     } );
   }
 

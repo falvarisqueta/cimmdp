@@ -39,7 +39,9 @@
 
 <script>
 $( document ).ready(function() {
-  formatTable('doctors', 'doctor_modal', 'doctors');
+  var buttons = "<button type='button' class='patients btn btn-primary'>Patients</button>"
+  formatTable('doctors', 'doctor_modal', 'doctors', buttons);
+  addTableButtonAction('doctors','button.patients','doctor_modal','doctors','patients')
 });
 
 </script>
