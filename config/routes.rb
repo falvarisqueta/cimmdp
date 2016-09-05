@@ -12,11 +12,14 @@ Rails.application.routes.draw do
   resources :patients
   resources :appointments
   resources :doctors
-  resources :doctors do
-    get :patients, on: :member
-  end
   resources :diseases
   resources :visits
 
+  resources :doctors do
+    get :patients, on: :member
+  end
+  resources :patients do
+    get :assign_protocol, on: :member
+  end
   root 'welcome#index'
 end

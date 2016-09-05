@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :update]
+  before_action :set_patient, only: [:show, :update, :assign_protocol]
 
   def index
     @patients = Patient.all
@@ -29,6 +29,9 @@ class PatientsController < ApplicationController
         format.json { render json: @patient.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def assign_protocol
   end
 
   # PATCH/PUT /patients/1

@@ -101,8 +101,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" onclick="openDialog('patient_modal','<%= new_appointment_path %>?patient_id=<%= @patient.id %>')">Appointment</button>
-    <button type="button" class="btn btn-primary" onclick="openDialog('patient_modal','<%= new_appointment_path%>')">Assign Protocol</button>
+    <button type="button" class="btn btn-primary <%= @patient.new_record? ? 'disabled' : '' %>" onclick="openDialog('patient_modal','<%= new_appointment_path %>?patient_id=<%= @patient.id %>')">Appointment</button>
+    <button type="button" class="btn btn-primary <%= @patient.new_record? ? 'disabled' : '' %>" onclick="openDialog('patient_modal','<%= assign_protocol_patient_path(@patient) unless @patient.new_record? %>')">Assign Protocol</button>
     <button type="submit" class="btn btn-primary">Save changes</button>
   </div>
 <% end %>
