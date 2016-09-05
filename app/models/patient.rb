@@ -4,7 +4,6 @@ class Patient < ActiveRecord::Base
  belongs_to :target_protocol, class_name: 'Protocol'
  belongs_to :referring_doctor, class_name: 'Doctor'
  belongs_to :qualifying_disease, class_name: 'Disease'
- has_many :clinic_histories
  has_many :patient_disease
  has_many :diseases, through: :patient_disease
 

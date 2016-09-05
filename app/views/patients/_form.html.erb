@@ -1,6 +1,10 @@
 <%= form_for @patient, validate: true, html: {role: "form", class:"modal-form"} do |f| %>
   <div class="modal-header">
-    <h4 class="modal-title">Add / Update Protocol</h4>
+    <h4 class="modal-title">Add / Update Patient</h4>
+  </div>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Personal Information</h4>
   </div>
   <div class="modal-body">
     <div class="form-group">
@@ -31,6 +35,12 @@
       <%= f.label :phone_mobile %><br>
       <%= f.text_field :phone_mobile, class: 'form-control' %>
     </div>
+  </div>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Contact Information</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <%= f.label :contact_name %><br>
       <%= f.text_field :contact_name, class: 'form-control' %>
@@ -43,6 +53,12 @@
       <%= f.label :contact_relationship %><br>
       <%= f.text_field :contact_relationship, class: 'form-control' %>
     </div>
+  </div>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Clinical Information</h4>
+  </div>
+  <div class="modal-body">
     <div class="form-group">
       <%= f.label :base_medication %><br>
       <%= f.text_field :base_medication, class: 'form-control' %>
@@ -80,22 +96,15 @@
       %>
     </div>
     <div class="form-group">
-      <%= f.label :protocol %><br>
-      <%= f.select(:protocol_id,
-        Protocol.all.map {|p| [ p.name, p.id ] },
-        { include_blank: true },
-        { class:'form-control' })
-      %>
-    </div>
-    <div class="form-group">
-      <%= f.label :patient_number %><br>
-      <%= f.text_field :patient_number, class: 'form-control' %>
+      <%= f.label :clinical_history %><br>
+      <%= f.text_field :clinical_history, class: 'form-control' %>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>?patient_id=<%= @patient.id %>')">Appointment</button>
+    <button type="button" class="btn btn-primary" onclick="openDialog('patient_modal','<%= new_appointment_path %>?patient_id=<%= @patient.id %>')">Appointment</button>
+    <button type="button" class="btn btn-primary" onclick="openDialog('patient_modal','<%= new_appointment_path%>')">Assign Protocol</button>
     <button type="submit" class="btn btn-primary">Save changes</button>
   </div>
 <% end %>
 
-<div id="appointment_modal" class="modal fade" tabindex="-1" role="dialog"></div>
+<div id="patient_modal" class="modal fade" tabindex="-1" role="dialog"></div>
