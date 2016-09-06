@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :visit_types
   resources :payments
   resources :users
   resources :protocols

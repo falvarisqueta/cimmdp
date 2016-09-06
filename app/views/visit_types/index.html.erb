@@ -1,0 +1,39 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+
+<h1>Listado Visitas</h1>
+
+<table id="visit_types" class="datatable">
+  <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @visit_types.each do |visit_type| %>
+      <tr>
+        <td style="display:none;" class="id"><%= visit_type.id %></td>
+        <td><%= visit_type.name %></td>
+        <td><%= visit_type.price %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<button type="button" class="btn btn-primary" onclick="openDialog('visit_type_modal','<%= new_visit_type_path %>')">New Visit Type</button>
+<div id="visit_type_modal" class="modal fade" tabindex="-1" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('visit_types', 'visit_type_modal', 'visit_types');
+});
+</script>
