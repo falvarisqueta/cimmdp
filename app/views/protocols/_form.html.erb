@@ -11,6 +11,14 @@
         <%= f.text_field :name, class: 'form-control'%>
       </div>
       <div class="form-group">
+        <%= f.label :sponsor %><br>
+        <%= f.select(:sponsor_id,
+          Sponsor.all.map {|u| [ u.name, u.id ] },
+          { include_blank: true },
+          { class:'form-control' })
+        %>
+      </div>
+      <div class="form-group">
         <%= f.label :patients_commitment %><br>
         <%= f.text_field :patients_commitment, class: 'form-control'%>
       </div>

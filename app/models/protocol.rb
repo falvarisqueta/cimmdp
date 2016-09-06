@@ -6,6 +6,7 @@ class Protocol < ActiveRecord::Base
   belongs_to :principal_investigator, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
   belongs_to :backup_coordinator, class_name: 'User'
+  belongs_to :sponsor
 
   validates :name,
     :principal_investigator_id,
@@ -24,4 +25,5 @@ class Protocol < ActiveRecord::Base
   delegate :full_name, to: :principal_investigator, prefix: true, allow_nil: true
   delegate :full_name, to: :coordinator, prefix: true, allow_nil: true
   delegate :full_name, to: :backup_coordinator, prefix: true, allow_nil: true
+  delegate :name, to: :sponsor, prefix: true, allow_nil: true
 end

@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
-  get 'diseases/index'
-  get 'doctors/index'
-  get 'appointments/index'
-  get 'patients/index'
-  get 'protocols/index'
-  get 'users/index'
-  get 'welcome/index'
-
+  
+  resources :payments
   resources :users
   resources :protocols
   resources :patients
@@ -14,6 +8,7 @@ Rails.application.routes.draw do
   resources :doctors
   resources :diseases
   resources :visits
+  resources :sponsors
 
   resources :doctors do
     get :patients, on: :member
