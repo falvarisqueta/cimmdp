@@ -55,10 +55,9 @@
         <%= v.text_field :full_name, class: 'form-control', disabled: true %>
       </div>
       <div class="form-group">
-        <%= v.label :clinic_history %><br>
-        <%= v.text_field :clinic_histories, class: 'form-control'%>
+        <%= v.label :clinical_history %><br>
+        <%= v.text_area :clinical_history, rows: "10", class: 'form-control'%>
       </div>
-
       <% end %>
     </div>
 

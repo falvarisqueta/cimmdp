@@ -5,6 +5,8 @@ class Appointment < ActiveRecord::Base
   belongs_to :patient
   belongs_to :visit
 
+  accepts_nested_attributes_for :patient
+
   validates :patient_id, :start_time, presence: true
 
   delegate :full_name, to: :doctor, prefix: true
