@@ -11,6 +11,7 @@
   <thead>
     <tr>
       <th style="display:none;">Id</th>
+      <th>Code</th>
       <th>Name</th>
       <th>Sponsor</th>
       <th>Patients comm</th>
@@ -25,6 +26,7 @@
     <% @protocols.each do |protocol| %>
       <tr>
         <td style="display:none;" class="id"><%= protocol.id %></td>
+        <td><%= protocol.code %></td>
         <td><%= protocol.name %></td>
         <td><%= protocol.sponsor_name %></td>
         <td><%= protocol.patients_commitment %></td>

@@ -9,6 +9,7 @@ class Protocol < ActiveRecord::Base
   belongs_to :sponsor
 
   validates :name,
+    :code,
     :principal_investigator_id,
     :sub_investigator_id,
     :coordinator_id,
