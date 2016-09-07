@@ -18,6 +18,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
+    @appointment.appointment_status_id = AppointmentStatus::Pending.id
 
     respond_to do |format|
       if @appointment.save
@@ -32,7 +33,7 @@ class AppointmentsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @appointment.update(appointment_params)
+      if @appointment.complete_appointment(appointment_params)
         format.html { redirect_to appointments_url, notice: 'Turno actualizado.' }
         format.json { head :no_content }
       else

@@ -1,5 +1,7 @@
 class Appointment < ActiveRecord::Base
   include AppointmentRoom
+  include AppointmentStatus
+  include VisitCategory
 
   belongs_to :doctor, class_name: 'User'
   belongs_to :patient
@@ -19,4 +21,36 @@ class Appointment < ActiveRecord::Base
     appointment_room.name
   end
 
+  def completed?
+    appointment_status_id == AppointmentStatus::Completed.id
+  end
+
+  def complete_appointment(appointment_params)
+    unless completed? then
+      update_attributes!(appointment_params.merge(appointment_status_id: AppointmentStatus::Completed.id))
+      register_doctor_payment
+      register_referring_doctor_payment
+    end
+  end
+
+  private
+
+
+
+  def register_doctor_payment
+    Payment.create(
+      patient_id: patient_id,
+      visit_id: visit_id,
+      user_id: doctor_id,
+    )
+  end
+
+  def register_referring_doctor_payment
+    Payment.create(
+      patient_id: patient_id,
+      visit_id: visit_id,
+      user_id: doctor_id,
+      doctor_id: patient.referring_doctor_id,
+    ) if visit.visit_type_id == VisitType::Rando.id
+  end
 end

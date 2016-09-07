@@ -10,7 +10,7 @@ module AppointmentStatus
   All = Collection.map(&:id)
 
   def appointment_status
-    AppointmentRoom::Collection.detect { |appointment_status| appointment_status.id == status_id }
+    AppointmentStatus::Collection.detect { |appointment_status| appointment_status.id == appointment_status_id }
   end
 
 end

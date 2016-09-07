@@ -19,11 +19,13 @@
 <table id="appointments" class="table table-striped">
   <thead>
     <tr>
-      <th>Fecha / Hora</th>
-      <th>Paciente</th>
+      <th>Date</th>
+      <th>Patient</th>
       <th>Doctor</th>
-      <th>Lugar</th>
-      <th>Visita</th>
+      <th>Place</th>
+      <th>Protocol</th>
+      <th>Visit</th>
+      <th>Status</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -34,7 +36,9 @@
         <td><%= appointment.patient.full_name %></td>
         <td><%= appointment.doctor.full_name %></td>
         <td><%= appointment.appointment_room.name %></td>
+        <td><%= appointment.visit.protocol_name %></td>
         <td><%= appointment.visit.name %></td>
+        <td><%= appointment.appointment_status.name %></td>
         <td>
           <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= edit_appointment_path(appointment) %>')">Edit</button>
           <a class="btn btn-primary" href="<%= appointment_path(appointment) %>">Show</a>
