@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906170519) do
+ActiveRecord::Schema.define(version: 20160907180321) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160906170519) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "end_time"
+    t.integer  "appointment_status_id"
   end
 
   add_index "appointments", ["doctor_id", "place_id", "start_time"], name: "appointment_unique", unique: true
@@ -90,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160906170519) do
     t.integer  "visit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "protocols", force: :cascade do |t|
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(version: 20160906170519) do
     t.datetime "updated_at"
     t.integer  "backup_coordinator_id"
     t.integer  "sponsor_id"
+    t.string   "code"
   end
 
   create_table "sponsors", force: :cascade do |t|
