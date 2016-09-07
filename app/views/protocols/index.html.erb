@@ -11,9 +11,9 @@
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Nombre</th>
+      <th>Name</th>
       <th>Sponsor</th>
-      <th>Objetivo Pacientes</th>
+      <th>Patients comm</th>
       <th>PI</th>
       <th>Sub Investigador</th>
       <th>Coordinador</th>
@@ -39,7 +39,9 @@
 </table>
 
 <br>
-<button type="button" class="btn btn-primary" onclick="openDialog('protocol_modal','<%= new_protocol_path %>')">Nuevo Protocolo</button>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('protocol_modal','<%= new_protocol_path %>')">New Protocol</button>
+
 <div id="protocol_modal" class="modal fade" role="dialog"></div>
 
 <script>

@@ -30,7 +30,9 @@
   </tbody>
 </table>
 
-<button type="button" class="btn btn-primary" onclick="openDialog('user_modal','<%= new_user_path %>')">Nuevo Usuario</button>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('user_modal','<%= new_user_path %>')">New User</button>
+
 <div id="user_modal" class="modal fade" role="dialog"></div>
 
 <script>

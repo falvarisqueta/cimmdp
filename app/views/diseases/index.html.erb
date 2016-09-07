@@ -29,7 +29,8 @@
 </table>
 
 <br>
-<button type="button" class="btn btn-primary" onclick="openDialog('disease_modal','<%= new_disease_path %>')">Nueva Enfermedad</button>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('disease_modal','<%= new_disease_path %>')">New Disease</button>
 <div id="disease_modal" class="modal fade" role="dialog"></div>
 
 <script>
