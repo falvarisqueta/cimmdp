@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  
+
+  get 'sessions/create'
+
+  get 'sessions/destroy'
+
   resources :visit_types
   resources :payments
   resources :users
@@ -17,5 +21,11 @@ Rails.application.routes.draw do
   resources :patients do
     get :assign_protocol, on: :member
   end
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'sessions#destroy', as: 'signout'
+  resources :sessions, only: [:create, :destroy]
+
   root 'welcome#index'
 end

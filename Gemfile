@@ -32,6 +32,7 @@ gem 'will_paginate'
 gem 'font-awesome-rails'
 gem 'select2-rails'
 gem 'jquery-datatables-rails'
+gem 'omniauth-google-oauth2', '~> 0.2.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
