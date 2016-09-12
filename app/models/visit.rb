@@ -18,4 +18,7 @@ class Visit < ActiveRecord::Base
   delegate :name, to: :protocol, prefix: true
   delegate :name, to: :visit_type, prefix: true, allow_nil:true
 
+  def complete_name
+    protocol_name +  " - " + name
+  end
 end

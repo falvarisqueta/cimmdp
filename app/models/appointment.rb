@@ -2,6 +2,7 @@ class Appointment < ActiveRecord::Base
   include AppointmentRoom
   include AppointmentStatus
   include VisitCategory
+  include PaymentStatus
 
   belongs_to :doctor, class_name: 'User'
   belongs_to :patient
@@ -42,6 +43,7 @@ class Appointment < ActiveRecord::Base
       patient_id: patient_id,
       visit_id: visit_id,
       user_id: doctor_id,
+      payment_status_id: PaymentStatus::Pending.id,
     )
   end
 
@@ -51,6 +53,7 @@ class Appointment < ActiveRecord::Base
       visit_id: visit_id,
       user_id: doctor_id,
       doctor_id: patient.referring_doctor_id,
-    ) if visit.visit_type_id == VisitType::Rando.id
+      payment_status_id: PaymentStatus::Pending.id,
+    ) if visit.visit_type_id == VisitCategory::Rando.id
   end
 end
