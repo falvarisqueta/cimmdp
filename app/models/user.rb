@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_many :user_permissions
+
   def full_name
     last_name.nil? ? first_name : first_name + "," + last_name
   end
@@ -11,4 +13,9 @@ class User < ActiveRecord::Base
       user.save!
     end if auth.info.email.split("@")[1] == "cimmdp.com"
   end
+
+  def finance_person?
+    user_permissions.exists?(Permission::Finance.id) || user_permissions.exists?(Permission::Admin.id)
+  end
+  
 end

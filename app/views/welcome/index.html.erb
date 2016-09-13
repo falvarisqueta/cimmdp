@@ -8,10 +8,12 @@
     <li><%= link_to 'Appointments', appointments_path %></li>
   </ul>
 
+  <% if current_user.finance_person? %>
   Finance
   <ul>
     <li><%= link_to 'Payments', payments_path %></li>
   </ul>
+  <% end %>
 
   Admin
   <ul>

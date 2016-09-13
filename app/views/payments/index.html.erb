@@ -5,6 +5,8 @@
   </div>
 <% end %>
 
+<% if current_user.finance_person? %>
+
 <h1>Payments</h1>
 
 <table id="payments" class="datatable">
@@ -40,3 +42,5 @@ $( document ).ready(function() {
   formatTable('payments', 'protocol_modal', 'payments');
 });
 </script>
+
+<% end %>

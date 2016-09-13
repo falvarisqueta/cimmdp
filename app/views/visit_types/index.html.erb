@@ -21,7 +21,7 @@
       <tr>
         <td style="display:none;" class="id"><%= visit_type.id %></td>
         <td><%= visit_type.name %></td>
-        <td><%= visit_type.price %></td>
+        <td><%= visit_type.price if current_user.finance_person? %></td>
         <td></td>
       </tr>
     <% end %>
