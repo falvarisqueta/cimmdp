@@ -1,21 +1,24 @@
 class Payment < ActiveRecord::Base
-  belongs_to :visit
   belongs_to :doctor
-  belongs_to :patient
   belongs_to :user
+  belongs_to :appointment
 
-  validates :patient_id, :user_id, :visit_id, presence: true
+  validates :appointment_id, presence: true
 
   def receiver
-    doctor.nil? ? user : doctor
+    doctor.nil? ? user.full_name : "#{doctor.full_name} (referring doctor) "
   end
 
   def reason
-    patient.full_name + " completed " + visit.complete_name
+    "#{appointment.patient.full_name} (#{appointment.patient.patient_number}) completed #{appointment.visit.complete_name}"
   end
 
   def amount
-    50
+    doctor.nil? ? appointment.visit.visit_type.price : 50
+  end
+
+  def pay
+    update_attributes!(payment_status_id: PaymentStatus::Payed.id)
   end
 
 end

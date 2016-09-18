@@ -1,0 +1,42 @@
+<% unless notice.blank? %>
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+
+<h1>Sponsors</h1>
+
+<table id="sponsor_fees" class="datatable">
+  <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th>Sponsor</th>
+      <th>Visit Type</th>
+      <th>Fee Percentage</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sponsor_fees.each do |sponsor_fee| %>
+      <tr>
+        <td style="display:none;" class="id"><%= sponsor_fee.id %></td>
+        <td><%= sponsor_fee.sponsor.name %></td>
+        <td><%= sponsor_fee.visit_type.name %></td>
+        <td><%= sponsor_fee.fee_percentage %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('sponsor_fee_modal','<%= new_sponsor_fee_path %>')">New Sponsor Fee</button>
+<div id="sponsor_fee_modal" class="modal fade" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('sponsor_fees', 'sponsor_fee_modal', 'sponsor_fees');
+});
+</script>

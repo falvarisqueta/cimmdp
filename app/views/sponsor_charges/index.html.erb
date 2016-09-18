@@ -9,7 +9,7 @@
 
 <h1>Payments</h1>
 
-<table id="payments" class="datatable">
+<table id="sponsor_charges" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
@@ -21,13 +21,13 @@
     </tr>
   </thead>
   <tbody>
-    <% @payments.each do |payment| %>
+    <% @sponsor_charges.each do |sponsor_charge| %>
       <tr>
-        <td style="display:none;" class="id"><%= payment.id %></td>
-        <td><%= payment.receiver %></td>
-        <td><%= payment.reason %></td>
-        <td><%= payment.amount %></td>
-        <td><%= payment.created_at %></td>
+        <td style="display:none;" class="id"><%= sponsor_charge.id %></td>
+        <td><%= sponsor_charge.sponsor.name %></td>
+        <td><%= sponsor_charge.reason %></td>
+        <td><%= sponsor_charge.amount %></td>
+        <td><%= sponsor_charge.created_at %></td>
         <td></td>
       </tr>
     <% end %>
@@ -36,10 +36,11 @@
 
 <br>
 <a href="<%= root_path %>" class="btn btn-default">Back</a>
+
 <% end %>
 
 <script>
 $( document ).ready(function() {
-  formatTable('payments', 'payments_modal', 'payments');
+  formatTable('sponsor_charges', 'sponsor_charges_modal', 'sponsor_charges');
 });
 </script>
