@@ -8,7 +8,7 @@ class Patient < ActiveRecord::Base
  has_many :diseases, through: :patient_disease
 
  validates :first_name, :last_name, :identifier, :address,:phone, :phone_mobile,
-    :contact_phone, :referring_doctor_id, :qualifying_pathology_id, :target_protocol_id,
+    :contact_phone, :referring_doctor_id, :target_protocol_id,
     :contact_name, :contact_relationship,
     presence: true
 
