@@ -2,11 +2,12 @@ class Protocol < ActiveRecord::Base
 
   has_many :patients
   has_many :visits
-  belongs_to :sub_investigator, class_name: 'User'
   belongs_to :principal_investigator, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
   belongs_to :backup_coordinator, class_name: 'User'
   belongs_to :sponsor
+  has_many :protocol_sub_investigator
+  has_many :sub_investigators, through: :protocol_sub_investigator, source: :user
 
   validates :name,
     :code,
@@ -22,7 +23,6 @@ class Protocol < ActiveRecord::Base
               greater_than_or_equal_to: 1
             }
 
-  delegate :full_name, to: :sub_investigator, prefix: true, allow_nil: true
   delegate :full_name, to: :principal_investigator, prefix: true, allow_nil: true
   delegate :full_name, to: :coordinator, prefix: true, allow_nil: true
   delegate :full_name, to: :backup_coordinator, prefix: true, allow_nil: true
