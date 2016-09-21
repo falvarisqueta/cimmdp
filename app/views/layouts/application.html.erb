@@ -35,7 +35,12 @@
 
     $("#" + container +" tbody").on('click', 'button.edit', function () {
       var id = $(this).parents('tr').find('.id').text()
-      openDialog(modal_container,'/' + model + '/' + id)
+      var url= '/' + model + '/' + id;
+      if(modal_container){
+        openDialog(modal_container, url)
+      } else {
+        window.location.href = url;
+      }
     } );
   }
 

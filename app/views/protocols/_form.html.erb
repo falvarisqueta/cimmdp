@@ -1,69 +1,122 @@
 <%= form_for @protocol, validate: true, html: {role: "form", class:"modal-form"} do |f| %>
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title">Add / Update Protocol</h4>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <%= f.label :code %><br>
-        <%= f.text_field :code, class: 'form-control'%>
-      </div>
-      <div class="form-group">
-        <%= f.label :name %><br>
-        <%= f.text_field :name, class: 'form-control'%>
-      </div>
-      <div class="form-group">
-        <%= f.label :sponsor %><br>
-        <%= f.select(:sponsor_id,
-          Sponsor.all.map {|u| [ u.name, u.id ] },
-          { include_blank: true },
-          { class:'form-control' })
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.label :patients_commitment %><br>
-        <%= f.text_field :patients_commitment, class: 'form-control'%>
-      </div>
-      <div class="form-group">
-        <%= f.label :principal_investigator %><br>
-        <%= f.select(:principal_investigator_id,
-          User.all.map {|u| [ u.full_name, u.id ] },
-          { include_blank: true },
-          { class:'form-control' })
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.label :sub_investigator %><br>
-        <%= f.select(:sub_investigator_id,
-          User.all.map {|u| [ u.full_name, u.id ] },
-          { include_blank: true },
-          { class:'form-control' })
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.label :coordinator %><br>
-        <%= f.select(:coordinator_id,
-          User.all.map {|u| [ u.full_name, u.id ] },
-          { include_blank: true },
-          { class:'form-control' })
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.label :backup_coordinator %><br>
-        <%= f.select(:backup_coordinator_id,
-          User.all.map {|u| [ u.full_name, u.id ] },
-          { include_blank: true },
-          { class:'form-control' })
-        %>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Save changes</button>
-    </div>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+<div class="modal-header">
+  <h4 class="modal-title">Protocol Information</h4>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <%= f.label :code %><br>
+    <%= f.text_field :code, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :sponsor %><br>
+    <%= f.select(:sponsor_id,
+      Sponsor.all.map {|u| [ u.name, u.id ] },
+      { include_blank: true },
+      { class:'form-control' })
+    %>
+  </div>
+</div>
+<div class="modal-header">
+  <h4 class="modal-title">CIMMDP Information</h4>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <%= f.label :patients_commitment %><br>
+    <%= f.text_field :patients_commitment, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :principal_investigator %><br>
+    <%= f.select(:principal_investigator_id,
+      User.all.map {|u| [ u.full_name, u.id ] },
+      { include_blank: true },
+      { class:'form-control' })
+    %>
+  </div>
+  <div class="form-group">
+    <%= f.label :sub_investigator %><br>
+    <%= f.select(:sub_investigator_id,
+      User.all.map {|u| [ u.full_name, u.id ] },
+      { include_blank: true },
+      { class:'form-control' })
+    %>
+  </div>
+  <div class="form-group">
+    <%= f.label :coordinator %><br>
+    <%= f.select(:coordinator_id,
+      User.all.map {|u| [ u.full_name, u.id ] },
+      { include_blank: true },
+      { class:'form-control' })
+    %>
+  </div>
+  <div class="form-group">
+    <%= f.label :backup_coordinator %><br>
+    <%= f.select(:backup_coordinator_id,
+      User.all.map {|u| [ u.full_name, u.id ] },
+      { include_blank: true },
+      { class:'form-control' })
+    %>
+  </div>
+</div>
+<div class="modal-header">
+  <h4 class="modal-title">Monitors Information</h4>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <%= f.label :monitor_name %><br>
+    <%= f.text_field :monitor_name, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_phone %><br>
+    <%= f.text_field :monitor_phone, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_mobile %><br>
+    <%= f.text_field :monitor_mobile, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_email %><br>
+    <%= f.text_field :monitor_email, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_name1 %><br>
+    <%= f.text_field :monitor_name1, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_phone1 %><br>
+    <%= f.text_field :monitor_phone1, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_mobile1 %><br>
+    <%= f.text_field :monitor_mobile1, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_email1 %><br>
+    <%= f.text_field :monitor_email1, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_name2 %><br>
+    <%= f.text_field :monitor_name2, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_phone2 %><br>
+    <%= f.text_field :monitor_phone2, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_mobile2 %><br>
+    <%= f.text_field :monitor_mobile2, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.label :monitor_email2 %><br>
+    <%= f.text_field :monitor_email2, class: 'form-control'%>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <button type="submit" class="btn btn-primary">Save changes</button>
+</div>
 
 <% end %>

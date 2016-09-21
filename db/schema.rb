@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915202606) do
+ActiveRecord::Schema.define(version: 20160921204540) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -105,6 +105,18 @@ ActiveRecord::Schema.define(version: 20160915202606) do
     t.integer  "backup_coordinator_id"
     t.integer  "sponsor_id"
     t.string   "code"
+    t.string   "monitor_name"
+    t.string   "monitor_phone"
+    t.string   "monitor_mobile"
+    t.string   "monitor_email"
+    t.string   "monitor_name1"
+    t.string   "monitor_phone1"
+    t.string   "monitor_mobile1"
+    t.string   "monitor_email1"
+    t.string   "monitor_name2"
+    t.string   "monitor_phone2"
+    t.string   "monitor_mobile2"
+    t.string   "monitor_email2"
   end
 
   create_table "sponsor_charges", force: :cascade do |t|
@@ -125,12 +137,8 @@ ActiveRecord::Schema.define(version: 20160915202606) do
 
   create_table "sponsors", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "monitor"
-    t.string   "phone"
-    t.string   "phone_mobile"
-    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_permissions", force: :cascade do |t|

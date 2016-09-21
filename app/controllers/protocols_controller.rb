@@ -55,6 +55,9 @@ class ProtocolsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def protocol_params
     params.require(:protocol).permit(:code, :name, :sponsor_id, :patients_commitment,
-      :principal_investigator_id, :sub_investigator_id, :coordinator_id, :backup_coordinator_id)
+      :principal_investigator_id, :sub_investigator_id, :coordinator_id, :backup_coordinator_id,
+      :monitor_name, :monitor_phone, :monitor_mobile, :monitor_email,
+      :monitor_name1, :monitor_phone1, :monitor_mobile1, :monitor_email1,
+      :monitor_name2, :monitor_phone2, :monitor_mobile2, :monitor_email2)
   end
 end
