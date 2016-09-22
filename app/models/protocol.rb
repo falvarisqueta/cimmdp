@@ -12,10 +12,15 @@ class Protocol < ActiveRecord::Base
   validates :name,
     :code,
     :principal_investigator_id,
-    :sub_investigator_id,
     :coordinator_id,
     :backup_coordinator_id,
   presence: true
+
+  validates :referring_doctor_payment_price,
+            numericality: {
+              greater_than_or_equal_to: 0,
+              allow_blank: true
+            }
 
   validates :patients_commitment,
             numericality: {

@@ -14,7 +14,7 @@ class Payment < ActiveRecord::Base
   end
 
   def amount
-    doctor.nil? ? appointment.visit.visit_type.price : 50
+    doctor.nil? ? appointment.visit.visit_type.price : appointment.visit.protocol.referring_doctor_payment_price
   end
 
   def pay

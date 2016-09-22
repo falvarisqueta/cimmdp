@@ -59,6 +59,6 @@ class ProtocolsController < ApplicationController
       :monitor_name, :monitor_phone, :monitor_mobile, :monitor_email,
       :monitor_name1, :monitor_phone1, :monitor_mobile1, :monitor_email1,
       :monitor_name2, :monitor_phone2, :monitor_mobile2, :monitor_email2,
-      sub_investigator_ids:[])
+      :referring_doctor_payment_price, sub_investigator_ids:[])
   end
 end
