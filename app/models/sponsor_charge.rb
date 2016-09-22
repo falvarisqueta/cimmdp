@@ -9,15 +9,7 @@ class SponsorCharge < ActiveRecord::Base
   end
 
   def amount
-    sponsor_fee = SponsorFee.where(
-                        sponsor_id: sponsor_id,
-                        visit_type_id: appointment.visit.visit_type_id).first
-
-    if sponsor_fee.nil?
-      appointment.visit.price
-    else
-      appointment.visit.price + appointment.visit.price * sponsor_fee.fee_percentage
-    end
+    appointment.visit.price + appointment.visit.price * appointment.visit.sponsor_fee
   end
 
   def invoice

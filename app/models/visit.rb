@@ -10,7 +10,7 @@ class Visit < ActiveRecord::Base
               greater_than_or_equal_to: 1
             }
 
-  validates :price,
+  validates :price, :sponsor_fee,
             numericality: {
               greater_than_or_equal_to: 0,
               allow_blank: true

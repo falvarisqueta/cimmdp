@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :sponsor_charges
-  resources :sponsor_fees
   get 'sessions/create'
-
   get 'sessions/destroy'
 
   resources :visit_types
@@ -16,6 +13,7 @@ Rails.application.routes.draw do
   resources :diseases
   resources :visits
   resources :sponsors
+  resources :sponsor_charges
 
   resources :doctors do
     get :patients, on: :member

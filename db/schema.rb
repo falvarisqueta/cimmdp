@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921213900) do
+ActiveRecord::Schema.define(version: 20160922123953) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20160921213900) do
     t.string   "monitor_phone2"
     t.string   "monitor_mobile2"
     t.string   "monitor_email2"
+    t.float    "referring_doctor_payment_price"
   end
 
   create_table "sponsor_charges", force: :cascade do |t|
@@ -131,14 +132,6 @@ ActiveRecord::Schema.define(version: 20160921213900) do
     t.integer  "payment_status_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-  end
-
-  create_table "sponsor_fees", force: :cascade do |t|
-    t.integer  "sponsor_id"
-    t.integer  "visit_type_id"
-    t.float    "fee_percentage"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
   end
 
   create_table "sponsors", force: :cascade do |t|
@@ -179,6 +172,7 @@ ActiveRecord::Schema.define(version: 20160921213900) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "visit_type_id"
+    t.float    "sponsor_fee"
   end
 
 end
