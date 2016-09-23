@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :update, :assign_protocol]
+  before_action :set_patient, only: [:show, :update, :assign_protocol, :destroy]
 
   def index
     @patients = Patient.all
@@ -44,6 +44,17 @@ class PatientsController < ApplicationController
       else
         format.html { render :show }
         format.json { render json: @patient.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @patient.destroy
+        format.html { redirect_to patients_url, notice: 'Patient was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to patients_url, error: @patient.errors  }
       end
     end
   end

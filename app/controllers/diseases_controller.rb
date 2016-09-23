@@ -1,5 +1,5 @@
 class DiseasesController < ApplicationController
-  before_action :set_disease, only: [:show, :update]
+  before_action :set_disease, only: [:show, :update, :destroy]
 
   def index
     @diseases = Disease.all
@@ -38,6 +38,17 @@ class DiseasesController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @disease.destroy
+        format.html { redirect_to diseases_url, notice: 'Disease was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to diseases_url, error: @disease.errors  }
+      end
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_disease

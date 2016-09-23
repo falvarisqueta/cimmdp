@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: [:show, :edit, :update]
+  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
 
   def index
     @appointments = Appointment.all
@@ -43,6 +43,16 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @appointment.destroy
+        format.html { redirect_to appointments_url, notice: 'Appointment was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to appointments_url, error: @appointment.errors  }
+      end
+    end
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.

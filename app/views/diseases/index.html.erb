@@ -4,15 +4,21 @@
     <strong><%= notice %></strong>
   </div>
 <% end %>
+<% unless error.blank? %>
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= error %></strong>
+  </div>
+<% end %>
 
-<h1>Listado Enfermendades</h1>
+<h1>Diseases</h1>
 
 <table id="diseases" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Code</th>
+      <th>Name</th>
       <th></th>
     </tr>
   </thead>

@@ -1,13 +1,13 @@
 class Protocol < ActiveRecord::Base
 
-  has_many :patients
-  has_many :visits
+  has_many :patients, dependent: :restrict_with_error
+  has_many :visits, dependent: :restrict_with_error
   belongs_to :principal_investigator, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
   belongs_to :backup_coordinator, class_name: 'User'
   belongs_to :sponsor
-  has_many :protocol_sub_investigator
-  has_many :sub_investigators, through: :protocol_sub_investigator, source: :user
+  has_many :protocol_sub_investigator, dependent: :destroy
+  has_many :sub_investigators, through: :protocol_sub_investigator, source: :user, dependent: :restrict_with_error
 
   validates :name,
     :code,

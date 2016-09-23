@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  before_action :set_visit, only: [:show, :update]
+  before_action :set_visit, only: [:show, :update, :destroy]
 
   # GET /visits
   # GET /visits.json
@@ -54,10 +54,13 @@ class VisitsController < ApplicationController
   # DELETE /visits/1
   # DELETE /visits/1.json
   def destroy
-    @visit.destroy
     respond_to do |format|
-      format.html { redirect_to visits_url, notice: 'Visit was successfully destroyed.' }
-      format.json { head :no_content }
+      if @visit.destroy
+        format.html { redirect_to visits_url, notice: 'Visit was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to visits_url, error: @visit.errors }
+      end
     end
   end
 

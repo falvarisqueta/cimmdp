@@ -4,8 +4,14 @@
     <strong><%= notice %></strong>
   </div>
 <% end %>
+<% unless error.blank? %>
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong><%= error %></strong>
+  </div>
+<% end %>
 
-<h1>Listado Usarios</h1>
+<h1>CIMMDP Users</h1>
 
 <table id="users" class="datatable">
   <thead>

@@ -1,5 +1,5 @@
 class ProtocolsController < ApplicationController
-  before_action :set_protocol, only: [:show, :update]
+  before_action :set_protocol, only: [:show, :update, :destroy]
 
   def index
     @protocols = Protocol.all
@@ -42,6 +42,17 @@ class ProtocolsController < ApplicationController
       else
         format.html { render :show }
         format.json { render json: @protocol.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @protocol.destroy
+        format.html { redirect_to protocols_url, notice: 'Protocol was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to protocols_url, error: @protocol.errors  }
       end
     end
   end

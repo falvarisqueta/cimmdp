@@ -24,12 +24,14 @@
   }
 
   function formatTable(container, modal_container, model, buttons = '') {
-    $("#" + container).DataTable({
+    var table = $("#" + container).DataTable({
       "columnDefs": [ {
             "targets": -1,
             "data": null,
             "defaultContent":
-              "<button type='button' class='edit btn btn-primary'>Edit</button>" + buttons
+              "<button type='button' class='edit btn btn-primary'>Edit</button>" +
+              "<button type='button' class='delete btn btn-primary'>Delete</button>" +
+              buttons
         } ]
     });
 
@@ -41,7 +43,21 @@
       } else {
         window.location.href = url;
       }
-    } );
+    });
+
+    $("#" + container +" tbody").on('click', 'button.delete', function () {
+      var id = $(this).parents('tr').find('.id').text()
+      var url= '/' + model + '/' + id;
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        async: true
+      })
+
+      return false
+    });
+
+    return table;
   }
 
   function addTableButtonAction(container, button_class, modal_container, model, url) {
@@ -51,8 +67,28 @@
     } );
   }
 
+  function pushRangeSearch(lowerRangeControl, higherRangeControl, columnIndex) {
+    $.fn.dataTable.ext.search.push(function( settings, data, dataIndex) {
+        var min = $("#" + lowerRangeControl).val();
+        var max = $("#" + higherRangeControl).val();
+        var value = data[columnIndex];
+
+        if ((min === "" && max === "") ||
+             (min === "" && value <= max) ||
+             (min <= value && max === "") ||
+             (min <= value && value <= max))
+        {
+            return true;
+        }
+
+        return false;
+    });
+  }
+
   function configureClientValidation() {
-    $(document).on('shown.bs.modal', function () { $(ClientSideValidations.selectors.forms).validate(); });
+    $(document).on('shown.bs.modal', function () {
+      $(ClientSideValidations.selectors.forms).validate();
+    });
   }
 
   $(document).ready(function() {

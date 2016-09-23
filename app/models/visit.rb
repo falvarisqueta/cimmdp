@@ -1,6 +1,7 @@
 class Visit < ActiveRecord::Base
   belongs_to :protocol
   belongs_to :visit_type
+  has_many :appointments, dependent: :restrict_with_error
 
   validates :name, :protocol_id, :visit_type_id, :activities, presence: true
 

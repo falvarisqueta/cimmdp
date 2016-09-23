@@ -54,10 +54,13 @@ class VisitTypesController < ApplicationController
   # DELETE /visit_types/1
   # DELETE /visit_types/1.json
   def destroy
-    @visit_type.destroy
     respond_to do |format|
-      format.html { redirect_to visit_types_url, notice: 'Visit type was successfully destroyed.' }
-      format.json { head :no_content }
+      if @visit_type.destroy
+        format.html { redirect_to visit_types_url, notice: 'Visit type was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to visit_types_url, error: @visit_type.errors }
+      end
     end
   end
 

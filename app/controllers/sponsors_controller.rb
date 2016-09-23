@@ -1,5 +1,5 @@
 class SponsorsController < ApplicationController
-  before_action :set_sponsor, only: [:show, :update]
+  before_action :set_sponsor, only: [:show, :update, :destroy]
 
   # GET /sponsors
   # GET /sponsors.json
@@ -54,10 +54,13 @@ class SponsorsController < ApplicationController
   # DELETE /sponsors/1
   # DELETE /sponsors/1.json
   def destroy
-    @sponsor.destroy
     respond_to do |format|
-      format.html { redirect_to sponsors_url, notice: 'Sponsor was successfully destroyed.' }
-      format.json { head :no_content }
+      if @sponsor.destroy
+        format.html { redirect_to sponsors_url, notice: 'Sponsor was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to sponsors_url, error: @sponsor.errors  }
+      end
     end
   end
 

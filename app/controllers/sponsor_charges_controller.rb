@@ -54,10 +54,13 @@ class SponsorChargesController < ApplicationController
   # DELETE /sponsor_charges/1
   # DELETE /sponsor_charges/1.json
   def destroy
-    @sponsor_charge.destroy
     respond_to do |format|
-      format.html { redirect_to sponsor_charges_url, notice: 'Sponsor charge was successfully destroyed.' }
-      format.json { head :no_content }
+      if @sponsor_charge.destroy
+        format.html { redirect_to sponsor_charges_url, notice: 'Sponsor charge was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to sponsor_charges_url, error: @sponsor_charge.errors  }
+      end
     end
   end
 

@@ -11,8 +11,8 @@
   <% if current_user.finance_person? %>
   Finance
   <ul>
-    <li><%= link_to 'Payments', payments_path %></li>
-    <li><%= link_to 'Sponsor Fees', sponsor_fees_path %></li>
+    <li><%= link_to 'CIM Doctors Payments', payments_path %></li>
+    <li><%= link_to 'Refering Doctor payments', payments_path %></li>
     <li><%= link_to 'Sponsor Charges', sponsor_charges_path %></li>
   </ul>
   <% end %>

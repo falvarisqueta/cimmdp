@@ -7,6 +7,8 @@ class Appointment < ActiveRecord::Base
   belongs_to :doctor, class_name: 'User'
   belongs_to :patient
   belongs_to :visit
+  has_many :sponsor_charges, dependent: :restrict_with_error
+  has_many :payments, dependent: :restrict_with_error
 
   accepts_nested_attributes_for :patient
 

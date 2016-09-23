@@ -4,8 +4,9 @@ class Patient < ActiveRecord::Base
  belongs_to :target_protocol, class_name: 'Protocol'
  belongs_to :referring_doctor, class_name: 'Doctor'
  belongs_to :qualifying_disease, class_name: 'Disease'
- has_many :patient_disease
- has_many :diseases, through: :patient_disease
+ has_many :patient_disease, dependent: :destroy
+ has_many :diseases, through: :patient_disease, dependent: :restrict_with_error
+ has_many :appointments, dependent: :restrict_with_error
 
  validates :first_name, :last_name, :identifier, :address,:phone, :phone_mobile,
     :contact_phone, :referring_doctor_id, :target_protocol_id,

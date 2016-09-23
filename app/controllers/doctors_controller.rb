@@ -1,5 +1,5 @@
 class DoctorsController < ApplicationController
-  before_action :set_doctor, only: [:show, :update]
+  before_action :set_doctor, only: [:show, :update, :destroy]
 
   def index
     @doctors = Doctor.all
@@ -41,6 +41,17 @@ class DoctorsController < ApplicationController
   def patients
     @doctor = Doctor.find(params[:id])
     @patients = @doctor.patients
+  end
+
+  def destroy
+    respond_to do |format|
+      if @doctor.destroy
+        format.html { redirect_to doctors_url, notice: 'Doctor was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to doctors_url, error: @doctor.errors  }
+      end
+    end
   end
 
   private
