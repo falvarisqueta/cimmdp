@@ -4,7 +4,11 @@ class PaymentsController < ApplicationController
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.cimmdp_payments
+  end
+
+  def referring_doctor_payments
+    @payments = Payment.referring_doctor_payments
   end
 
   # GET /payments/1

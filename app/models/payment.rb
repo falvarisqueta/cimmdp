@@ -5,6 +5,9 @@ class Payment < ActiveRecord::Base
 
   validates :appointment_id, presence: true
 
+  scope :referring_doctor_payments, -> { where.not(doctor: nil) }
+  scope :cimmdp_payments, -> { where(doctor: nil) }
+
   def receiver
     doctor.nil? ? user.full_name : "#{doctor.full_name} (referring doctor) "
   end
