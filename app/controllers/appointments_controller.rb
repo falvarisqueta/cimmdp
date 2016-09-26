@@ -13,7 +13,13 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @appointment.patient = Patient.find(params[:patient_id])
+  end
+
+  def update_visits
+    @patient = Patient.find(params[:id])
+    respond_to do |format|
+      format.json  { render :json => @patient.visits }
+    end
   end
 
   def create

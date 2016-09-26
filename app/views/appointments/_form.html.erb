@@ -6,13 +6,14 @@
       <h4 class="modal-title">Add / Update Appointment</h4>
     </div>
     <div class="modal-body">
-      <%= f.fields_for :patient, @appointment.patient do |p| %>
       <div class="form-group">
-        <%= p.label :full_name %><br>
-        <%= p.text_field :full_name, class: 'form-control'%>
+        <%= f.label :patient %><br>
+        <%= f.select(:patient_id,
+          Patient.all.map {|u| [ u.full_name, u.id ] },
+          { include_blank: true },
+          { class:'form-control' })
+        %>
       </div>
-      <% end %>
-      <%= f.hidden_field :patient_id %>
       <div class="form-group">
         <%= f.label :start_time %><br>
         <%= f.datetime_select :start_time, ampm:true, minute_step:30, class: 'form-control'%>
@@ -34,9 +35,9 @@
         %>
       </div>
       <div class="form-group">
-        <%= f.label :visit %><br>
+        <%= f.label :visit %> (Protocol - Visit)<br>
         <%= f.select(:visit_id,
-          @appointment.visits.map {|v| [ v.name, v.id ] },
+          Visit.all.map {|v| [ v.complete_name, v.id ] },
           { include_blank: true },
           { class:'form-control' })
         %>
@@ -50,3 +51,42 @@
 </div><!-- /.modal-dialog -->
 
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("select#appointment_patient_id").change(function(){
+      var patient_id = $(this).val();
+      if (patient_id == "") {
+        // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
+        $("select#appointment_visit_id option").remove();
+        var row = "<option value=\"" + "" + "\">" + "" + "</option>";
+        $(row).appendTo("select#appointment_visit_id");
+      }
+      else {
+        // Send the request and update sub category dropdown
+        $.ajax({
+          dataType: "json",
+          cache: false,
+          url: '/appointments/update_visits/' + patient_id,
+          timeout: 2000,
+          error: function(XMLHttpRequest, errorTextStatus, error){
+            alert("Failed to load visits : "+ errorTextStatus+" ;"+error);
+          },
+          success: function(data){
+            debugger;
+            // Clear all options from sub category select
+            $("select#appointment_visit_id option").remove();
+            //put in a empty default line
+            var row = "<option value=\"" + "" + "\">" + "" + "</option>";
+            $(row).appendTo("select#appointment_visit_id");
+            // Fill sub category select
+            $.each(data, function(i, visit){
+                row = "<option value=\"" + visit.id + "\">" + visit.name + "</option>";
+                $(row).appendTo("select#appointment_visit_id");
+            });
+          }
+        });
+      };
+    });
+ });
+</script>

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'sessions/create'
   get 'sessions/destroy'
+  get 'appointments/update_visits/:id' => 'appointments#update_visits'
 
   resources :visit_types
   resources :payments

@@ -13,18 +13,10 @@
 
 <h1>Appointments</h1>
 
-<%= form_tag protocols_path, :method => 'get' do %>
-  <%= hidden_field_tag :direction, params[:direction] %>
-  <%= hidden_field_tag :sort, params[:sort] %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
-
-<table id="appointments" class="table table-striped">
+<table id="appointments" class="datatable">
   <thead>
     <tr>
+      <th style="display:none;">Id</th>
       <th>Date</th>
       <th>Patient</th>
       <th>Doctor</th>
@@ -32,12 +24,13 @@
       <th>Protocol</th>
       <th>Visit</th>
       <th>Status</th>
-      <th colspan="4"></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @appointments.each do |appointment| %>
       <tr>
+        <td style="display:none;" class="id"><%= appointment.id %></td>
         <td><%= appointment.start_time %></td>
         <td><%= appointment.patient.full_name %></td>
         <td><%= appointment.doctor.full_name %></td>
@@ -46,8 +39,6 @@
         <td><%= appointment.visit.name %></td>
         <td><%= appointment.appointment_status.name %></td>
         <td>
-          <button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= edit_appointment_path(appointment) %>')">Edit</button>
-          <a class="btn btn-primary" href="<%= appointment_path(appointment) %>">Show</a>
         </td>
       </tr>
     <% end %>
@@ -56,4 +47,12 @@
 
 <br>
 <a href="<%= root_path %>" class="btn btn-default">Back</a>
+<button type="button" class="btn btn-primary" onclick="openDialog('appointment_modal','<%= new_appointment_path %>')">New Appointment</button>
+
 <div id="appointment_modal" class="modal fade" role="dialog"></div>
+
+<script>
+$( document ).ready(function() {
+  formatTable('appointments', '', 'appointments');
+});
+</script>

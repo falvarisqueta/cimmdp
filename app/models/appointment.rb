@@ -18,10 +18,6 @@ class Appointment < ActiveRecord::Base
 
   delegate :full_name, to: :doctor, prefix: true
 
-  def visits
-    patient.visits
-  end
-
   def place_name
     appointment_room.name
   end
