@@ -10,7 +10,7 @@
         <%= f.label :name %><br>
         <%= f.text_field :name, class: 'form-control'%>
       </div>
-      <% if current_user.finance_person? %>
+      <% if finance_person? %>
       <div class="form-group">
         <%= f.label :doctor_fee %><br>
         <%= f.text_field :price, class: 'form-control'%>

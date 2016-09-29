@@ -60,7 +60,7 @@
       { class:'form-control' })
     %>
   </div>
-  <% if current_user.finance_person? %>
+  <% if finance_person? %>
   <div class="form-group">
     <%= f.label :referring_doctor_payment_price %><br>
     <%= f.text_field :referring_doctor_payment_price, class: 'form-control'%>
