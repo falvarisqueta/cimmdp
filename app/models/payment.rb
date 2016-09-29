@@ -11,11 +11,7 @@ class Payment < ActiveRecord::Base
   def receiver
     doctor.nil? ? user.full_name : "#{doctor.full_name} (referring doctor) "
   end
-
-  def reason
-    "#{appointment.patient.full_name} (#{appointment.patient.patient_number}) completed #{appointment.visit.complete_name}"
-  end
-
+  
   def amount
     doctor.nil? ? appointment.visit.visit_type.price : appointment.visit.protocol.referring_doctor_payment_price
   end

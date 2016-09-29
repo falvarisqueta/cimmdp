@@ -4,10 +4,6 @@ class SponsorCharge < ActiveRecord::Base
 
   validates :appointment_id, :sponsor_id, presence: true
 
-  def reason
-    "#{appointment.patient.full_name} (#{appointment.patient.patient_number}) completed #{appointment.visit.complete_name}"
-  end
-
   def amount
     appointment.visit.price + appointment.visit.price * appointment.visit.sponsor_fee
   end

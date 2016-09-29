@@ -13,17 +13,20 @@
 
 <% if current_user.finance_person? %>
 
-<h1>Payments</h1>
+<h1>Referring doctors payment</h1>
 
 From: <input type="text" id="fromDate" name="fromDate" class="form-control"></td>
 To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
-
+<br>
 <table id="payments" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
       <th>Receiver</th>
-      <th>Reason</th>
+      <th>Patient</th>
+      <th>Protocol</th>
+      <th>Visit</th>
+      <th>Visit Type</th>
       <th>Amount</th>
       <th>Created Date</th>
       <th></th>
@@ -34,7 +37,10 @@ To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
       <tr>
         <td style="display:none;" class="id"><%= payment.id %></td>
         <td><%= payment.receiver %></td>
-        <td><%= payment.reason %></td>
+        <td><%= "#{payment.appointment.patient.full_name} (#{payment.appointment.patient.patient_number})"%></td>
+        <td><%= payment.appointment.visit.protocol.name %></td>
+        <td><%= payment.appointment.visit.name %></td>
+        <td><%= payment.appointment.visit.visit_type.name %></td>
         <td><%= payment.amount %></td>
         <td><%= payment.created_at %></td>
         <td></td>

@@ -13,14 +13,19 @@
 
 <% if current_user.finance_person? %>
 
-<h1>Payments</h1>
+<h1>Sponsor Charges</h1>
 
+From: <input type="text" id="fromDate" name="fromDate" class="form-control"></td>
+To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
+<br>
 <table id="sponsor_charges" class="datatable">
   <thead>
     <tr>
       <th style="display:none;">Id</th>
-      <th>Receiver</th>
-      <th>Reason</th>
+      <th>Sponsor</th>
+      <th>Patient</th>
+      <th>Protocol</th>
+      <th>Visit</th>
       <th>Amount</th>
       <th>Created Date</th>
       <th></th>
@@ -31,7 +36,9 @@
       <tr>
         <td style="display:none;" class="id"><%= sponsor_charge.id %></td>
         <td><%= sponsor_charge.sponsor.name %></td>
-        <td><%= sponsor_charge.reason %></td>
+        <td><%= "#{sponsor_charge.appointment.patient.full_name} (#{sponsor_charge.appointment.patient.patient_number})"%></td>
+        <td><%= sponsor_charge.appointment.visit.protocol.name %></td>
+        <td><%= sponsor_charge.appointment.visit.name %></td>
         <td><%= sponsor_charge.amount %></td>
         <td><%= sponsor_charge.created_at %></td>
         <td></td>
@@ -47,6 +54,10 @@
 
 <script>
 $( document ).ready(function() {
-  formatTable('sponsor_charges', 'sponsor_charges_modal', 'sponsor_charges');
+  pushRangeSearch('fromDate','toDate', 4)
+  var table = formatTable('sponsor_charges', '', 'sponsor_charges');
+  $('#fromDate, #toDate').keyup( function() {
+      table.draw();
+  });
 });
 </script>
