@@ -45,7 +45,7 @@ class VisitsController < ApplicationController
         format.html { redirect_to visits_url, notice: 'Visit was successfully updated.' }
         format.json { render :show, status: :ok, location: @visit }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @visit.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +72,8 @@ class VisitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:protocol_id, :visit_type_id, :name, :duration, :price, :activities, :sponsor_fee)
+      params.require(:visit).permit(
+        :protocol_id, :visit_type_id, :name, :duration, :order, :window, :activities,
+        :price, :sponsor_fee)
     end
 end
