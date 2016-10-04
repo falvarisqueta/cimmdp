@@ -92,7 +92,10 @@
   }
 
   $(document).ready(function() {
-    $('select').select2();
+    $('select').select2({dropdownAutoWidth : true});
+    $('.datetime').find('.select2-container').each(function() {
+      $(this).css('width', 'auto');
+    });
     $('.modal-form').enableClientSideValidations();
   });
 </script>
