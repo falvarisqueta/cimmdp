@@ -44,7 +44,7 @@
     <div class="modal-header">
       <h4 class="modal-title">Patient Info</h4>
     </div>
-      <div class="modal-body">
+    <div class="modal-body">
       <%= f.fields_for :patient, @appointment.patient do |v| %>
       <div class="form-group">
         <%= v.label :patient_number %><br>
@@ -61,9 +61,50 @@
       <% end %>
     </div>
 
+    <% unless @appointment.pending? %>
+    <div class="modal-header">
+      <h4 class="modal-title">Pending Activities</h4>
+      <p> Note: Uncheck all activities that are completed. Visit will remain In progress until all activities are completed </p>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <%= f.collection_check_boxes :pending_activity_ids, PendingActivity.all, :id, :name do |m| %>
+          <%= m.check_box %> <%= m.label %><br/>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+
     <div class="modal-footer">
       <a href="<%= appointments_path %>" class="btn btn-default" >Back</a>
-      <button type="submit" class="btn btn-primary <%= @appointment.completed? ? 'disabled' : '' %>">Visit Completed</button>
+      <% if @appointment.pending? then %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#appointment_modal"> Visit Completed</button>
+      <% else %>
+        <button type="submit" class="btn btn-primary <%= @appointment.completed? ? 'disabled' : '' %>">Visit Completed</button>
+      <% end %>
     </div>
 
+    <% if @appointment.pending? %>
+    <div id="appointment_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Please check any pending activity</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= f.label :pending_activities %><br>
+              <%= f.collection_check_boxes :pending_activity_ids, PendingActivity.all, :id, :name do |m| %>
+                <%= m.check_box %> <%= m.label %><br/>
+              <% end %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary <%= @appointment.completed? ? 'disabled' : '' %>">Visit Completed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
 <% end %>
