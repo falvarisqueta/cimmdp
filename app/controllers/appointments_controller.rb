@@ -70,7 +70,7 @@ class AppointmentsController < ApplicationController
   def appointment_params
     params.require(:appointment).permit(
       :start_time, :patient_id, :doctor_id, :visit_id, :place_id,
-      patient_attributes: [:id, :clinical_history],
+      patient_attributes: [:id, :clinical_history, :clinical_history_entry],
       pending_activity_ids:[]
     )
   end

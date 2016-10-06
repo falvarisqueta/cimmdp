@@ -12,7 +12,6 @@ class Appointment < ActiveRecord::Base
   has_many :appointment_pending_activity, dependent: :destroy
   has_many :pending_activities, through: :appointment_pending_activity, dependent: :restrict_with_error
 
-
   accepts_nested_attributes_for :patient
 
   validates :patient_id, :start_time, presence: true
@@ -34,6 +33,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def complete_appointment(appointment_params)
+    patient.append_clinical_history(appointment_params['patient_attributes']['clinical_history_entry'])
     if appointment_params["pending_activity_ids"].compact.reject(&:blank?).any? then
       update_attributes!(appointment_params.merge(appointment_status_id: AppointmentStatus::InProgress.id))
     else

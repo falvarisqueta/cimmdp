@@ -1,4 +1,5 @@
 class Patient < ActiveRecord::Base
+ attr_accessor :clinical_history_entry
 
  belongs_to :protocol
  belongs_to :target_protocol, class_name: 'Protocol'
@@ -25,6 +26,13 @@ class Patient < ActiveRecord::Base
 
  def visits
    protocol.blank? ? target_protocol.visits : protocol.visits
+ end
+
+ def append_clinical_history(clinical_history_entry)
+   unless clinical_history_entry.empty?
+     new_clinical_history = "[#{Date.today}] \r\n #{clinical_history_entry} \r\n\r\n #{clinical_history}"
+     update_attributes!(clinical_history: new_clinical_history)
+   end
  end
 
 end

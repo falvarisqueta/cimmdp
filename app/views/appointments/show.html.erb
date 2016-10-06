@@ -54,9 +54,15 @@
         <%= v.label :full_name %><br>
         <%= v.text_field :full_name, class: 'form-control', disabled: true %>
       </div>
+
       <div class="form-group">
         <%= v.label :clinical_history %><br>
-        <%= v.text_area :clinical_history, rows: "10", class: 'form-control'%>
+        <% unless @appointment.completed? %>
+        <%= v.label :new_entry %><br>
+        <%= v.text_area :clinical_history_entry, rows:5, class: 'form-control' %><br>
+        <%= v.label :history %><br>
+        <% end %>
+        <%= v.text_area :clinical_history, rows: "10", class: 'form-control', disabled: true%>
       </div>
       <% end %>
     </div>
