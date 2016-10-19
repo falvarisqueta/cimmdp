@@ -17,6 +17,7 @@ class Appointment < ActiveRecord::Base
   validates :patient_id, :start_time, presence: true
   validates :start_time, uniqueness: { scope: :doctor_id }
   validates :start_time, uniqueness: { scope: :place_id }
+  validates :visit_id, uniqueness: { scope: :patient_id }
 
   delegate :full_name, to: :doctor, prefix: true
 
@@ -33,7 +34,11 @@ class Appointment < ActiveRecord::Base
   end
 
   def complete_appointment(appointment_params)
-    patient.append_clinical_history(appointment_params['patient_attributes']['clinical_history_entry'])
+    patient.complete_appointment(
+      appointment_params['patient_attributes']['clinical_history_entry'],
+      appointment_status_id,
+      visit_id)
+
     if appointment_params["pending_activity_ids"].compact.reject(&:blank?).any? then
       update_attributes!(appointment_params.merge(appointment_status_id: AppointmentStatus::InProgress.id))
     else
