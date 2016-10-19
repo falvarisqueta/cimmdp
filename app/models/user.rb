@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   end
 
   def finance_person?
-    user_permissions.exists?(Permission::Finance.id) || user_permissions.exists?(Permission::Admin.id)
+    permission_ids = user_permissions.map(&:permission_id)
+    permission_ids.include?(Permission::Finance.id) || permission_ids.include?(Permission::Admin.id)
   end
 
 end
