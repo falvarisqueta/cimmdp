@@ -5,7 +5,7 @@ class SponsorCharge < ActiveRecord::Base
   validates :appointment_id, :sponsor_id, presence: true
 
   def amount
-    appointment.visit.price + appointment.visit.price * appointment.visit.sponsor_fee
+    appointment.visit.price.to_f + appointment.visit.price.to_f * appointment.visit.sponsor_fee.to_f
   end
 
   def invoice
