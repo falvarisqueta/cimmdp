@@ -7,6 +7,7 @@ module AppointmentStatus
   NotAttended = StaticValue.new(4, 'Did not Attend')
 
   Collection = constants.map { |appointment_status| const_get(appointment_status) }
+  Occur = [InProgress.id, Completed.id]
   All = Collection.map(&:id)
 
   def appointment_status

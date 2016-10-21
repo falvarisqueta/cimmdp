@@ -5,7 +5,7 @@ class Visit < ActiveRecord::Base
 
   validates :name, :protocol_id, :visit_type_id, :activities, presence: true
 
-  validates :duration, :order, :window,
+  validates :duration, :order, :window_upper, :window_lower, :days_from_start,
             numericality: {
               only_integer: true,
               greater_than_or_equal_to: 1

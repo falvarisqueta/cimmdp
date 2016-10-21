@@ -14,6 +14,10 @@
           { class:'form-control' })
         %>
       </div>
+      <div id="next_visit_info" class="alert alert-warning" style="display:none">
+        <div id="visit_name"></div>
+        <div id="visit_date"></div>
+      </div>
       <div class="form-group">
         <%= f.label :start_time %><br>
         <div class="datetime">
@@ -59,36 +63,48 @@
     $("select#appointment_patient_id").change(function(){
       var patient_id = $(this).val();
       if (patient_id == "") {
-        // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
-        $("select#appointment_visit_id option").remove();
-        var row = "<option value=\"" + "" + "\">" + "" + "</option>";
-        $(row).appendTo("select#appointment_visit_id");
-      }
-      else {
-        // Send the request and update sub category dropdown
-        $.ajax({
-          dataType: "json",
-          cache: false,
-          url: '/appointments/update_visits/' + patient_id,
-          timeout: 2000,
-          error: function(XMLHttpRequest, errorTextStatus, error){
-            alert("Failed to load visits : "+ errorTextStatus+" ;"+error);
-          },
-          success: function(data){
-            debugger;
-            // Clear all options from sub category select
-            $("select#appointment_visit_id option").remove();
-            //put in a empty default line
-            var row = "<option value=\"" + "" + "\">" + "" + "</option>";
-            $(row).appendTo("select#appointment_visit_id");
-            // Fill sub category select
-            $.each(data, function(i, visit){
-                row = "<option value=\"" + visit.id + "\">" + visit.name + "</option>";
-                $(row).appendTo("select#appointment_visit_id");
-            });
-          }
-        });
+        cleanForm();
+      } else {
+        updateVisits(patient_id);
       };
     });
  });
+
+ function updateVisits(patient_id) {
+   $.ajax({
+     dataType: "json",
+     cache: false,
+     url: '/appointments/update_visits/' + patient_id,
+     timeout: 2000,
+     error: function(XMLHttpRequest, errorTextStatus, error){
+       alert("Failed to load visits : "+ errorTextStatus+" ;"+error);
+     },
+     success: function(data){
+       cleanForm();
+       // Fill visits select
+       $('#visit_name').append("<b> Next Visit: " + data["next_visit"].name)
+       $('#visit_date').append("<b> Visit Date Range is : " + data["next_visit_date"][0] + " - " + data["next_visit_date"][1])
+       $('#visit_date').append("<br><b>If visit date is not in the expected range it could end in a minor deviation. <br>")
+       $('#next_visit_info').show();
+       $.each(data["visits"], function(i, visit){
+           row = "<option value=\"" + visit.id + "\">" + visit.name + "</option>";
+           $(row).appendTo("select#appointment_visit_id");
+       });
+       $("select#appointment_visit_id").val(data["next_visit"].id)
+     }
+   });
+ }
+
+ function cleanForm() {
+   // Clear all options from sub category select
+   $("select#appointment_visit_id option").remove();
+   //put in a empty default line
+   var row = "<option value=\"" + "" + "\">" + "" + "</option>";
+   $(row).appendTo("select#appointment_visit_id");
+
+   $('#visit_name').empty();
+   $('#visit_date').empty();
+   $('#next_visit_info').hide();
+ }
+
 </script>
