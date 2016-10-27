@@ -17,40 +17,48 @@
 
 From: <input type="text" id="fromDate" name="fromDate" class="form-control"></td>
 To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
-<br>
-<table id="payments" class="datatable">
-  <thead>
-    <tr>
-      <th style="display:none;">Id</th>
-      <th>Receiver</th>
-      <th>Patient</th>
-      <th>Protocol</th>
-      <th>Visit</th>
-      <th>Visit Type</th>
-      <th>Amount</th>
-      <th>Created Date</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @payments.each do |payment| %>
-      <tr>
-        <td style="display:none;" class="id"><%= payment.id %></td>
-        <td><%= payment.receiver %></td>
-        <td><%= "#{payment.appointment.patient.full_name} (#{payment.appointment.patient.patient_number})"%></td>
-        <td><%= payment.appointment.visit.protocol.name %></td>
-        <td><%= payment.appointment.visit.name %></td>
-        <td><%= payment.appointment.visit.visit_type.name %></td>
-        <td><%= payment.amount %></td>
-        <td><%= payment.created_at %></td>
-        <td></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
-<a href="<%= root_path %>" class="btn btn-default">Back</a>
+
+<%= form_tag({controller: "payments", action: "pay_referring_doctors"}, id:"payments_form", method: "post") do %>
+  <input type="hidden" name="payments_ids" value="" id="payments_ids">
+  <table id="payments" class="datatable">
+    <thead>
+      <tr>
+        <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+        <th style="display:none;">Id</th>
+        <th>Receiver</th>
+        <th>Patient</th>
+        <th>Protocol</th>
+        <th>Visit</th>
+        <th>Visit Type</th>
+        <th>Amount</th>
+        <th>Created Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><input type="checkbox" id="chk_selected" value="<%= payment.id %>" <%= "disabled" if payment.payment_status_id == PaymentStatus::Payed.id %>/>
+          <td style="display:none;" class="id"><%= payment.id %></td>
+          <td><%= payment.receiver %></td>
+          <td><%= "#{payment.appointment.patient.full_name} (#{payment.appointment.patient.patient_number})"%></td>
+          <td><%= payment.appointment.visit.protocol.name %></td>
+          <td><%= payment.appointment.visit.name %></td>
+          <td><%= payment.appointment.visit.visit_type.name %></td>
+          <td><%= payment.amount %></td>
+          <td><%= payment.created_at %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <a href="<%= root_path %>" class="btn btn-default">Back</a>
+  <input type="submit" value="Pay Selected" class="btn btn-primary"/>
+  <% end %>
 <% end %>
 
 <script>
@@ -59,6 +67,21 @@ $( document ).ready(function() {
   var table = formatTable('payments', '', 'payments');
   $('#fromDate, #toDate').keyup( function() {
       table.draw();
+  });
+
+  $('#example-select-all').on('click', function(){
+    var rows = table.rows({ 'search': 'applied' }).nodes();
+    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+  });
+
+  $('#payments_form').on('submit', function(e){
+    var payments_ids = [];
+    table.$('input[type="checkbox"]').each(function(){
+      if(this.checked){
+        payments_ids.push(this.value);
+      }
+    });
+    $('#payments_ids').val(payments_ids.join(','))
   });
 });
 </script>

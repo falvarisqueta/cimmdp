@@ -25,6 +25,17 @@ class PaymentsController < ApplicationController
   def edit
   end
 
+  def pay_selected
+    if Payment.pay(params[:payments_ids])
+      redirect_to payments_url, notice: 'Payments Payed.'
+    end
+  end
+
+  def pay_referring_doctors
+    if Payment.pay(params[:payments_ids])
+      redirect_to referring_doctor_payments_url, notice: 'Payments Payed.'
+    end
+  end
   # POST /payments
   # POST /payments.json
   def create

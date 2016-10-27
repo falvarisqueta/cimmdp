@@ -9,7 +9,7 @@ module PaymentStatus
   All = Collection.map(&:id)
 
   def payment_status
-    AppointmentStatus::Collection.detect { |payment_status| payment_status.id == payment_status_id }
+    PaymentStatus::Collection.detect { |payment_status| payment_status.id == payment_status_id }
   end
 
 end

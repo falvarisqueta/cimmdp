@@ -13,43 +13,51 @@
 
 <% if finance_person? %>
 
-<h1>Sponsor Charges</h1>
+  <h1>Sponsor Charges</h1>
 
-From: <input type="text" id="fromDate" name="fromDate" class="form-control"></td>
-To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
-<br>
-<table id="sponsor_charges" class="datatable">
-  <thead>
-    <tr>
-      <th style="display:none;">Id</th>
-      <th>Sponsor</th>
-      <th>Patient</th>
-      <th>Protocol</th>
-      <th>Visit</th>
-      <th>Amount</th>
-      <th>Created Date</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sponsor_charges.each do |sponsor_charge| %>
-      <tr>
-        <td style="display:none;" class="id"><%= sponsor_charge.id %></td>
-        <td><%= sponsor_charge.sponsor.name %></td>
-        <td><%= "#{sponsor_charge.appointment.patient.full_name} (#{sponsor_charge.appointment.patient.patient_number})"%></td>
-        <td><%= sponsor_charge.appointment.visit.protocol.name %></td>
-        <td><%= sponsor_charge.appointment.visit.name %></td>
-        <td><%= sponsor_charge.amount %></td>
-        <td><%= sponsor_charge.created_at %></td>
-        <td></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  From: <input type="text" id="fromDate" name="fromDate" class="form-control"></td>
+  To: <input type="text" id="toDate" name="toDate" class="form-control"></td>
 
-<br>
-<a href="<%= root_path %>" class="btn btn-default">Back</a>
+  <br>
+  <%= form_tag({controller: "sponsor_charges", action: "pay_selected"}, id:"sponsor_charges_form", method: "post") do %>
+    <input type="hidden" name="sponsor_charges_ids" value="" id="sponsor_charges_ids">
+    <table id="sponsor_charges" class="datatable">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="select_all" value="1" id="example-select-all"></th>
+          <th style="display:none;">Id</th>
+          <th>Sponsor</th>
+          <th>Patient</th>
+          <th>Protocol</th>
+          <th>Visit</th>
+          <th>Amount</th>
+          <th>Created Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sponsor_charges.each do |sponsor_charge| %>
+          <tr>
+            <td><input type="checkbox" id="chk_selected" value="<%= sponsor_charge.id %>" <%= "disabled" if sponsor_charge.payment_status_id == PaymentStatus::Invoiced.id %>/>
+            <td style="display:none;" class="id"><%= sponsor_charge.id %></td>
+            <td><%= sponsor_charge.sponsor.name %></td>
+            <td><%= "#{sponsor_charge.appointment.patient.full_name} (#{sponsor_charge.appointment.patient.patient_number})"%></td>
+            <td><%= sponsor_charge.appointment.visit.protocol.name %></td>
+            <td><%= sponsor_charge.appointment.visit.name %></td>
+            <td><%= sponsor_charge.amount %></td>
+            <td><%= sponsor_charge.created_at %></td>
+            <td><%= sponsor_charge.payment_status.name %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
+    <br>
+    <a href="<%= root_path %>" class="btn btn-default">Back</a>
+    <input type="submit" value="Pay Selected" class="btn btn-primary"/>
+  <% end %>
 <% end %>
 
 <script>
@@ -58,6 +66,21 @@ $( document ).ready(function() {
   var table = formatTable('sponsor_charges', '', 'sponsor_charges');
   $('#fromDate, #toDate').keyup( function() {
       table.draw();
+  });
+
+  $('#example-select-all').on('click', function(){
+    var rows = table.rows({ 'search': 'applied' }).nodes();
+    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+  });
+
+  $('#sponsor_charges_form').on('submit', function(e){
+    var sponsor_charges_ids = [];
+    table.$('input[type="checkbox"]').each(function(){
+      if(this.checked){
+        sponsor_charges_ids.push(this.value);
+      }
+    });
+    $('#sponsor_charges_ids').val(sponsor_charges_ids.join(','))
   });
 });
 </script>

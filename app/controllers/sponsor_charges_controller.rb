@@ -7,6 +7,12 @@ class SponsorChargesController < ApplicationController
     @sponsor_charges = SponsorCharge.all
   end
 
+  def pay_selected
+    if SponsorCharge.invoice(params[:sponsor_charges_ids])
+      redirect_to sponsor_charges_url, notice: 'Sponsor charges invoiced.'
+    end
+  end
+
   # GET /sponsor_charges/1
   # GET /sponsor_charges/1.json
   def show
