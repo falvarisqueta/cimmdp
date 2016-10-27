@@ -8,8 +8,12 @@ class SponsorChargesController < ApplicationController
   end
 
   def pay_selected
-    if SponsorCharge.invoice(params[:sponsor_charges_ids])
-      redirect_to sponsor_charges_url, notice: 'Sponsor charges invoiced.'
+    sponsor_charges_ids = params[:sponsor_charges_ids].split(',')
+    if sponsor_charges_ids.any?
+      SponsorCharge.invoice(sponsor_charges_ids)
+      redirect_to sponsor_charges_url, notice: 'Payments Payed.'
+    else
+      redirect_to sponsor_charges_url, error: 'No payments were selected.'
     end
   end
 

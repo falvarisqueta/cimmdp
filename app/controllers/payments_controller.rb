@@ -26,16 +26,13 @@ class PaymentsController < ApplicationController
   end
 
   def pay_selected
-    if Payment.pay(params[:payments_ids])
-      redirect_to payments_url, notice: 'Payments Payed.'
-    end
+    pay_selected_payments(params, payments_url)
   end
 
   def pay_referring_doctors
-    if Payment.pay(params[:payments_ids])
-      redirect_to referring_doctor_payments_url, notice: 'Payments Payed.'
-    end
+    pay_selected_payments(params, referring_doctor_payments_url)
   end
+
   # POST /payments
   # POST /payments.json
   def create
@@ -83,6 +80,16 @@ class PaymentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_payment
       @payment = Payment.find(params[:id])
+    end
+
+    def pay_selected_payments(params, redirect_url)
+      payments_ids = params[:payments_ids].split(',')
+      if payments_ids.any?
+        Payment.pay(payments_ids)
+        redirect_to redirect_url, notice: 'Payments Payed.'
+      else
+        redirect_to redirect_url, error: 'No payments were selected.'
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

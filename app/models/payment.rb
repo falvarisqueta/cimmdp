@@ -19,9 +19,7 @@ class Payment < ActiveRecord::Base
   end
 
   def self.pay(payments_ids)
-    unless payments_ids.blank?
-      Payment.where('id IN (?)', payments_ids).update_all(payment_status_id: PaymentStatus::Payed.id)
-    end
+    Payment.where('id IN (?)', payments_ids).update_all(payment_status_id: PaymentStatus::Payed.id)
   end
 
 end

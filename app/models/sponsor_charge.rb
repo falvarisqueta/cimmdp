@@ -11,8 +11,6 @@ class SponsorCharge < ActiveRecord::Base
   end
 
   def self.invoice(payment_status_ids)
-    unless payment_status_ids.blank?
-      SponsorCharge.where('id IN (?)', payment_status_ids).update_all(payment_status_id: PaymentStatus::Invoiced.id)
-    end
+    SponsorCharge.where('id IN (?)', payment_status_ids).update_all(payment_status_id: PaymentStatus::Invoiced.id)
   end
 end
